@@ -1,12 +1,11 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 
+from core.abstract import AbstractViewSet
 from core.user.models import User
-from core.user.serializer import UserSerializer
+from core.user.serializers import UserSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(AbstractViewSet):
     http_method_names = ('patch', 'get')
     permission_classes = (IsAuthenticated, )
     serializer_class = UserSerializer
