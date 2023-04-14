@@ -75,3 +75,23 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_superuser
+
+    def like(self, post):
+        """Like `post` if it hasn't been done yet"""
+        return self.posts_liked.add(post)
+
+    def remove_like(self, post):
+        """Remove a like from a `post`"""
+        return self.posts_liked.remove(post)
+
+    def has_like(self, post):
+        """Return True if the user has liked a `post`; else False"""
+        return self.posts_liked.filter(pk=post.pk).exists()
+
+
+
+
+
+
+
+
