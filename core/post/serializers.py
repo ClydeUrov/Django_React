@@ -23,6 +23,15 @@ class PostSerializer(AbstractSerializer):
 
         return rep
 
+    def update(self, instance, validated_data):
+        if not instance.edited:
+            validated_data['edited'] = True
+        instance = super().update(instance, validated_data)
+        return instance
+
+    # def likes_count(self, count):
+    #
+
     class Meta:
         model = Post
         # List of all the fields that can be included in a request or a response
