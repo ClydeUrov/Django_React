@@ -9,20 +9,31 @@ from core.post.models import Post
 
 
 class CommentSerializer(AbstractSerializer):
-    author = serializers.SlugRelatedField(queryset=User.objects.all(), related_name='public_id')
-    post = serializers.SlugRelatedField(queryset=Post.objects.all(), related_name='public_id')
+    author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
+    post = serializers.SlugRelatedField(queryset=Post.objects.all(), slug_field='public_id')
 
     def validate_author(self, value):
         if self.context["request"].user != value:
             raise ValidationError("You can`t create a comment for other user.")
+        return value
+
+    def validate_post(self, value):
+        print(self.instance)
+        if self.instance:
+            return self.instance.post
         return value
     
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         author = User.objects.get_object_by_public_id(rep["author"])
         rep["author"] = UserSerializer(author).data
-
         return rep
+
+    def update(self, instance, validated_data):
+        if not instance.edited:
+            validated_data['edited'] = True
+        instance = super().update(instance, validated_data)
+        return instance
 
     class Meta:
         model = Comment
