@@ -2,7 +2,7 @@ import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 
 const axiosService = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: "http://localhost:8000/api/v1/",
     headers: {
         "Content-Type": "application/json",
     },
@@ -26,7 +26,7 @@ const refreshAuthLogic = async (failedRequest) => {
     const { refresh } = JSON.parse(localStorage.getItem("auth"));
     return axios
     .post("/refresh/token/", null, {
-        baseURL: "http://localhost:8000",
+        baseURL: "http://localhost:8000/api/v1/",
         headers: { Authorization: `Bearer ${refresh}`,},
     })
     .then((resp) => {
