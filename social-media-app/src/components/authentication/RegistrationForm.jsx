@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -15,17 +15,10 @@ function RegistrationForm() {
         bio: "",
     });
     const [error, setError] = useState(null);
-    console.log(1, {validated})
-    console.log(111)
 
     const handleSubmit = (event) => {
         event.preventDefault(); // перезагружаем страницу
         const registrationForm = event.currentTarget;
-        
-        console.log(333, `df`, "df")
-        console.log(`reg`, registrationForm)
-        console.log(`event`, event)
-
 
         if (registrationForm.checkValidity() === false) {
             event.stopPropagation();
@@ -40,9 +33,6 @@ function RegistrationForm() {
             last_name: form.last_name,
             bio: form.bio,
         };
-
-        console.log(localStorage.getItem("auth"))
-        console.log(data)
 
         axios
             .post("http://localhost:8000/api/v1/auth/register/", data)
@@ -63,9 +53,6 @@ function RegistrationForm() {
             });
     };
 
-    console.log(222, handleSubmit)
-
-    console.log(2, {validated});
     return (
         <Form 
             id="registration-form"
@@ -165,7 +152,6 @@ function RegistrationForm() {
             </Button>
         </Form>
     );
-
 }
 
 export default RegistrationForm;
