@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react_router_dom";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-    const navigate = useNavigate;
+    const navigate = useNavigate();
     const [validated, setValidated] = useState(false);
     const [form, setForm] = useState({
         email: "",
@@ -13,8 +13,8 @@ function LoginForm() {
     const [error, setError] = useState(null);
     const handleSubmit = (event) => {
         event.preventDefault(); // перезагружаем страницу
-
         const loginForm = event.currentTarget;
+
         if (loginForm.checkValidity() === false) {
             event.stopPropagation();
         }
@@ -34,7 +34,6 @@ function LoginForm() {
                     refresh: res.data.refresh,
                     user: res.data.user,
                 }));
-
                 navigate("/home/");
             })
             .catch((err) => {
@@ -53,16 +52,16 @@ function LoginForm() {
             onSubmit={handleSubmit}
         >
             <Form.Group className="mb-3">
-                <Form.Label>Username</Form.Label>
+                <Form.Label>Email address</Form.Label>
                 <Form.Control
-                    value={form.username} 
-                    onChange={(e) => setForm({ ...form, username: e.target.value})}
+                    value={form.email} 
+                    onChange={(e) => setForm({ ...form, email: e.target.value})}
                     required
                     type="text"
-                    placeholder = "Enter username"
+                    placeholder = "Enter email address"
                 />
                 <Form.Control.Feedback type="invalid">
-                    This field is required.
+                    Please provide a valid email.
                 </Form.Control.Feedback>
             </Form.Group>
 

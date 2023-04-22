@@ -12,7 +12,7 @@ function Registration() {
                         <p className="content">
                             This is a new social media site that will allow you to share your thoughts and
                             experiences with your friends. Register now and start enjoying! <br />
-                            Or if you already have an account, please{""}
+                            Or if you already have an account, please {""}
                             <Link to="/login/">login</Link>
                         </p>
                     </div>
