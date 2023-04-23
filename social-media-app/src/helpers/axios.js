@@ -1,5 +1,6 @@
 import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
+import { getAccessToken, getRefreshToken } from "../hooks/user.actions";
 
 const axiosService = axios.create({
     baseURL: "http://localhost:8000/api/v1/",
@@ -11,9 +12,7 @@ const axiosService = axios.create({
 axiosService.interceptors.request.use(async (config) => {
     /*Retrieving the access token from the localStorage
     and adding it to the headers of the request*/
-    const { access } = JSON.parse(localStorage.getItem("auth"));
-
-    config.headers.Authorizetion = `Bearer ${access}`;
+    config.headers.Authorizetion = `Bearer ${getAccessToken()}`;
     return config;
 });
 
@@ -23,16 +22,15 @@ axiosService.interceptors.request.use(
 );
 
 const refreshAuthLogic = async (failedRequest) => {
-    const { refresh } = JSON.parse(localStorage.getItem("auth"));
     return axios
     .post("/refresh/token/", null, {
         baseURL: "http://localhost:8000/api/v1/",
-        headers: { Authorization: `Bearer ${refresh}`,},
+        headers: { Authorization: `Bearer ${getRefreshToken()}`,},
     })
     .then((resp) => {
-        const { access, refresh } = resp.data;
+        const { access, refresh, user } = resp.data;
         failedRequest.response.config.headers["Authorization"] = "Bearer " + access;
-        localStorage.setItem("auth", JSON.stringify({ access, refresh }));
+        localStorage.setItem("auth", JSON.stringify({ access, refresh, user }));
     })
     .catch(() => {
         localStorage.removeItem("auth");
