@@ -3,7 +3,7 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { getAccessToken, getRefreshToken } from "../hooks/user.actions";
 
 const axiosService = axios.create({
-    baseURL: "http://127.0.0.1:8000//api/v1/",
+    baseURL: "http://127.0.0.1:8000/api/v1/",
     headers: {
         "Content-Type": "application/json",
     },
@@ -38,14 +38,10 @@ const refreshAuthLogic = async (failedRequest) => {
     });
 };
 
-console.log(refreshAuthLogic)
-
 createAuthRefreshInterceptor(axiosService, refreshAuthLogic);
 
 export function fetcher(url) {
     return axiosService.get(url).then((res) => res.data);
 }
-
-console.log(axiosService)
 
 export default axiosService;

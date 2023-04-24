@@ -30,6 +30,7 @@ function CreatePost() {
             author: user.id,
             body: form.body
         }
+        console.log(data)
 
         axiosService
             .post("/post/", data)
