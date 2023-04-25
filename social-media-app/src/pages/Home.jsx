@@ -33,12 +33,12 @@ function Home() {
                             />
                         </Col>
                         <Col sm={10} className="flex-grow-1">
-                            <CreatePost />
+                            <CreatePost refresh={posts.mutate} />
                         </Col>
                     </Row>
                     <Row className="my-4">
                         {posts.data?.results.map((post, index) => (
-                            <Post key={index} post={post} refresh={post.mutate}/>
+                            <Post key={index} post={post} refresh={posts.mutate}/>
                         ))}
                     </Row>
                 </Col>

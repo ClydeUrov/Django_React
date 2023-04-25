@@ -5,7 +5,8 @@ import { getUser } from "../../hooks/user.actions";
 import Toaster from "../Toaster";
 
 
-function CreatePost() {
+function CreatePost(props) {
+    const { refresh } = props;
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -39,7 +40,11 @@ function CreatePost() {
                 setToastMessage("Post created 🚀")
                 setToastType("success");
                 setForm({});
+                console.log(4, showToast);
                 setShowToast(true);
+                console.log(44, showToast);
+                refresh();
+                console.log(444, showToast);
             })
             .catch((error) => {
                 setToastMessage("An error occured 🧐")

@@ -5,6 +5,8 @@ import { Toast, ToastContainer } from "react-bootstrap";
 function Toaster(props) {
     const { showToast, title, message, onClose, type } = props;
 
+    console.log(2, showToast);
+
     return (
         <ToastContainer position="top-center">
             <Toast onClose={onClose} show={showToast} delay={3000} autohide bg={type}>

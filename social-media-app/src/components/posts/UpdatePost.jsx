@@ -29,20 +29,21 @@ function UpdatePost(props) {
             author: form.author,
             body: form.body,
         };
-
-        console.log(data);
-        console.log(post.author.id)
-
+        console.log(showToast);
         axiosService
             .put(`/post/${post.id}/`, data)
             .then(() => {
                 handleClose();
-                setForm({});
                 setShowToast(true);
+                console.log(1, showToast);
                 refresh();
+                console.log(11, showToast);
+                setShowToast(true);
+                console.log(111, showToast);
             })
-            .catch((error) => {console.log(error)});
-
+            .catch((error) => {console.log(error);
+            });
+        console.log("csdcs", showToast);
     };
 
     return (
@@ -50,7 +51,7 @@ function UpdatePost(props) {
             <Dropdown.Item onClick={handleShow}>Modify</Dropdown.Item>
 
             <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton className="border-0">
+                <Modal.Header closeButton className="border-0">
                     <Modal.Title>Update Post</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="border-0">
@@ -78,7 +79,7 @@ function UpdatePost(props) {
                 message="Post updated 🚀"
                 type="success"
                 showToast={showToast}
-                onClick={() => setShowToast(false)}
+                onClose={() => setShowToast(false)}
             />
         </>
     );
