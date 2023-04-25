@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Modal, Form, Dropdown } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
-import Toaster from "../Toaster";
+import { Context } from "../Layout";
 
 function UpdatePost(props) {
     const { post, refresh } = props;
-    const [showToast, setShowToast] = useState(false);
+    // const [showToast, setShowToast] = useState(false);
     const [show, setShow] = useState(false);
     const [form, setForm] = useState({
         author: post.author.id,
         body: post.body,
     });
     const [validated, setValidated] = useState(false);
+    const { setToaster } = useContext(Context);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -29,21 +30,27 @@ function UpdatePost(props) {
             author: form.author,
             body: form.body,
         };
-        console.log(showToast);
+
         axiosService
             .put(`/post/${post.id}/`, data)
             .then(() => {
                 handleClose();
-                setShowToast(true);
-                console.log(1, showToast);
+                setToaster({
+                    type: "success",
+                    message: "Post updated 🚀",
+                    show: true,
+                    title: "Post Success",
+                })
                 refresh();
-                console.log(11, showToast);
-                setShowToast(true);
-                console.log(111, showToast);
             })
-            .catch((error) => {console.log(error);
+            .catch((error) => {
+                setToaster({
+                    title: "Post Error",
+                    message: "An error occurred.",
+                    type: "danger",
+                    show: true,
+                });
             });
-        console.log("csdcs", showToast);
     };
 
     return (
@@ -74,13 +81,6 @@ function UpdatePost(props) {
                 </Modal.Footer>
 
             </Modal>
-            <Toaster
-                title="Success!"
-                message="Post updated 🚀"
-                type="success"
-                showToast={showToast}
-                onClose={() => setShowToast(false)}
-            />
         </>
     );
 }

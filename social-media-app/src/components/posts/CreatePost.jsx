@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
 import { getUser } from "../../hooks/user.actions";
-import Toaster from "../Toaster";
+import { Context } from "../Layout";
 
 
 function CreatePost(props) {
     const { refresh } = props;
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     const [validated, setValidated] = useState(false);
     const [form, setForm] = useState({});
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-    const [toastType, setToastType] = useState("");
+    // const [showToast, setShowToast] = useState(false);
+    // const [toastMessage, setToastMessage] = useState("");
+    // const [toastType, setToastType] = useState("");
+
+    const { setToaster } = useContext(Context);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const user = getUser();
 
@@ -37,18 +40,22 @@ function CreatePost(props) {
             .post("/post/", data)
             .then(() => {
                 handleClose();
-                setToastMessage("Post created 🚀")
-                setToastType("success");
+                setToaster({
+                    type: "success",
+                    message: "Post created 🚀",
+                    show: true,
+                    title: "Post Success",
+                });
                 setForm({});
-                console.log(4, showToast);
-                setShowToast(true);
-                console.log(44, showToast);
                 refresh();
-                console.log(444, showToast);
             })
             .catch((error) => {
-                setToastMessage("An error occured 🧐")
-                setToastType("danger");
+                setToaster({
+                    title: "Post Error",
+                    message: "An error occurred.",
+                    type: "danger",
+                    show: true,
+                });
             });
     };
 
@@ -86,14 +93,6 @@ function CreatePost(props) {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-            <Toaster
-                title="Post!"
-                message={toastMessage}
-                showToast={showToast}
-                type={toastType}
-                onClose={() => setShowToast(false)}
-            />
         </>
     )
 };
