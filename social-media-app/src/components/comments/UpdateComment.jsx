@@ -3,25 +3,26 @@ import { Button, Modal, Form, Dropdown } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
 import { Context } from "../Layout";
 
-function UpdatePost(props) {
-    const { post, refresh } = props;
-    // const [showToast, setShowToast] = useState(false);
+
+function UpdateComment(props) {
+    const { postId, comment, refresh } = props;
     const [show, setShow] = useState(false);
-    const [form, setForm] = useState({
-        author: post.author.id,
-        body: post.body,
-    });
     const [validated, setValidated] = useState(false);
+    const [form, setForm] = useState({
+        author: comment.author.id,
+        body: comment.body,
+        post: postId,
+    });
     const { setToaster } = useContext(Context);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleUpdate = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        const updatePostForm = event.currentTarget;
+        const updateCommentForm = event.currentTarget;
         
-        if (updatePostForm.checkValidity() === false) {
+        if (updateCommentForm.checkValidity() === false) {
             event.stopPropagation();
         }
         setValidated(true);
@@ -29,40 +30,40 @@ function UpdatePost(props) {
         const data = {
             author: form.author,
             body: form.body,
+            post: postId,
         };
 
         axiosService
-            .put(`/post/${post.id}/`, data)
+            .put(`/post/${postId}/comment/${comment.id}/`, data)
             .then(() => {
                 handleClose();
                 setToaster({
                     type: "success",
-                    message: "Post updated 🚀",
+                    message: "Comment updated 🚀",
                     show: true,
-                    title: "Post Success",
-                })
+                    title: "Success!",
+                });
                 refresh();
             })
             .catch(() => {
                 setToaster({
-                    title: "Post Error",
+                    title: "Comment Error",
                     message: "An error occurred.",
                     type: "danger",
                     show: true,
                 });
             });
-    };
+    }
 
     return (
         <>
             <Dropdown.Item onClick={handleShow}>Modify</Dropdown.Item>
-
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton className="border-0">
                     <Modal.Title>Update Post</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="border-0">
-                    <Form noValidate validated={validated} onSubmit={handleUpdate}>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Control 
                                 name="body" 
@@ -75,14 +76,14 @@ function UpdatePost(props) {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleUpdate}>
+                    <Button variant="primary" onClick={handleSubmit}>
                         Modify
                     </Button>
                 </Modal.Footer>
-
             </Modal>
         </>
-    );
+    )
+
 }
 
-export default UpdatePost;
+export default UpdateComment;

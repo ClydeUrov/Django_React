@@ -5,7 +5,7 @@ import { Toast, ToastContainer } from "react-bootstrap";
 function Toaster(props) {
     const { showToast, title, message, onClose, type } = props;
 
-    console.log(2, showToast);
+    console.log("toaster", showToast);
 
     return (
         <ToastContainer position="top-center">

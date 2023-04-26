@@ -1,30 +1,18 @@
 import React, { useContext } from "react";
 import { format } from "timeago.js";
-import { LikeFilled, CommentOutlined, LikeOutlined, MoreOutlined } from "@ant-design/icons";
+import { LikeFilled, CommentOutlined, LikeOutlined } from "@ant-design/icons";
 import { Image, Card, Dropdown } from "react-bootstrap";
-// import Toaster from "../Toaster";
 import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
 import { Link } from "react-router-dom";
 import { getUser } from "../../hooks/user.actions";
 import UpdatePost from "./UpdatePost";
 import { Context } from "../Layout";
+import MoreToggleIcon from "../MoreToggleIcon";
 
-
-const MoreToggleIcon = React.forwardRef(({ onClick }, ref) => (
-    <Link
-        to="#"
-        ref={ref}
-        onClick={(e) => {e.preventDefault(); onClick(e);}}
-    >
-        <MoreOutlined />
-    </Link>
-));
 
 function Post(props) {
     const { post, refresh, isSinglePost } = props;
-    // const [showToast, setShowToast] = useState(false);
-    // const user = getUser();
     const { setToaster } = useContext(Context);
     
     const user = getUser();
@@ -85,7 +73,7 @@ function Post(props) {
                                 <Dropdown>
                                     <Dropdown.Toggle as={MoreToggleIcon}></Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <UpdatePost post={post} refresh={post.mutate} />
+                                        <UpdatePost post={post} refresh={refresh} />
                                         <Dropdown.Item onClick={handleDelete} className="text-danger">
                                             Delete
                                         </Dropdown.Item>
@@ -111,7 +99,7 @@ function Post(props) {
                                 <small>{post.likes_count} like</small>
                             </p>
                         </div>
-                        {!isSinglePost && (
+                        {/* {!isSinglePost && (
                             <p className="ms-1 fs-6">
                                 <small>
                                     <Link to={`/post/${post.id}/`}>
@@ -119,7 +107,7 @@ function Post(props) {
                                     </Link>
                                 </small>
                             </p>
-                        )}
+                        )} */}
                     </div>
                 </Card.Body>
                 <Card.Footer className="d-flex bg-white w-50 justify-content-between border-0">
@@ -145,19 +133,21 @@ function Post(props) {
                         </p>
                     </div>
                     {!isSinglePost && (
-                        <div className="d-flex flex-row">
-                            <CommentOutlined
-                                style={{
-                                    width: "24px",
-                                    height: "24px",
-                                    padding: "2px",
-                                    fontSize: "20px",
-                                    color: "#C4C4C4",
-                                }}
-                            />
-                            <p className="ms-1 mb-0">
-                                <small>Comment</small>
-                            </p>
+                        <div className="d-flex align-items-center">
+                            <Link to={`/post/${post.id}/`} className="d-flex align-items-center">
+                                <CommentOutlined
+                                    style={{
+                                        width: "24px",
+                                        height: "24px",
+                                        padding: "2px",
+                                        fontSize: "20px",
+                                        color: "#C4C4C4",
+                                    }}
+                                />
+                                <p className="ms-1 mb-0">
+                                    <small>Comment</small>
+                                </p>
+                            </Link>
                         </div>
                     )}
                 </Card.Footer>

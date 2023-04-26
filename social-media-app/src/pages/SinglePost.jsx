@@ -5,16 +5,16 @@ import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import { fetcher } from "../helpers/axios";
 import Post from "../components/posts/Post";
-// import CreateComment from "../components/comments/CreateComment";
-// import Comment from "../components/comments/Comment";
+import CreateComment from "../components/comments/CreateComment";
+import Comment from "../components/comments/Comment";
 
 function SinglePost() {
-    console.log(useParams())
+    console.log("params", useParams())
     let { postId } = useParams();
 
     const post = useSWR(`/post/${postId}/`, fetcher);
 
-    // const comments = useSWR(`/post/${postId}/comment/`, fetcher);
+    const comments = useSWR(`/post/${postId}/comment/`, fetcher)
 
     return (
         <Layout hasNavigationBack>
@@ -22,6 +22,15 @@ function SinglePost() {
                 <Row className="justify-content-center">
                     <Col sm={8}>
                         <Post post={post.data} refresh={post.mutate} isSinglePost />
+                        <CreateComment postId={post.data.id} refresh={comments.mutate} />
+                        {comments.data && comments.data.results.map((comment, index) => (
+                            <Comment
+                                key={index}
+                                postId={post.data.id}
+                                comment={comment}
+                                refresh={comments.mutate}
+                            />
+                        ))}
                     </Col>
                 </Row>
             ) : (

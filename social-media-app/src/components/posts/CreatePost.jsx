@@ -34,10 +34,9 @@ function CreatePost(props) {
             author: user.id,
             body: form.body
         }
-        console.log(data)
 
         axiosService
-            .post("/post/", data)
+            .post(`/post/`, data)
             .then(() => {
                 handleClose();
                 setToaster({
@@ -49,7 +48,7 @@ function CreatePost(props) {
                 setForm({});
                 refresh();
             })
-            .catch((error) => {
+            .catch(() => {
                 setToaster({
                     title: "Post Error",
                     message: "An error occurred.",
