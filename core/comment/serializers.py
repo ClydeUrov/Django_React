@@ -11,6 +11,17 @@ from core.post.models import Post
 class CommentSerializer(AbstractSerializer):
     author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
     post = serializers.SlugRelatedField(queryset=Post.objects.all(), slug_field='public_id')
+    liked = serializers.SerializerMethodField()
+    likes_count = serializers.SerializerMethodField()
+
+    def get_liked(self, instance):
+        request = self.context.get('request', None)
+        if request is None or request.user.is_anonymous:
+            return False
+        return request.user.has_liked_comment(instance)
+
+    def get_likes_count(self, instance):
+        return instance.commented_by.count()
 
     def validate_author(self, value):
         if self.context["request"].user != value:
@@ -37,5 +48,7 @@ class CommentSerializer(AbstractSerializer):
 
     class Meta:
         model = Comment
-        fields = ['id', 'author', 'post', 'body', 'edited', 'created', 'updated']
+        fields = [
+            'id', 'author', 'post', 'body', 'edited', 'liked', 'likes_count', 'created', 'updated'
+        ]
         read_only_fields = ["edited"]
