@@ -55,7 +55,7 @@ function Post(props) {
                     <Card.Title className="d-flex flex-row justify-content-between">
                         <div className="d-flex flex-row">
                             <Image
-                                src={randomAvatar()}
+                                src={post.author.avatar}
                                 roundedCircle
                                 width={48}
                                 height={48}

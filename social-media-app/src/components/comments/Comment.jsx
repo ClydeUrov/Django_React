@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { format } from "timeago.js";
 import { Image, Card, Dropdown } from "react-bootstrap";
 import { randomAvatar } from "../../utils";
@@ -22,7 +22,6 @@ function Comment(props) {
                 refresh();
             })
             .catch((err) => console.error(err));
-
     }
 
     const handleDelete = () => {
@@ -46,8 +45,6 @@ function Comment(props) {
                 });
             });
     };
-    console.log("comment", comment)
-
 
 
     return (
@@ -56,7 +53,7 @@ function Comment(props) {
                 <Card.Title className="d-flex flex-row justify-content-between">
                     <div className="d-flex flex-row">
                         <Image
-                            src={randomAvatar()}
+                            src={comment.author.avatar}
                             roundedCircle
                             width={48}
                             height={48}
