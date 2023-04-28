@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { format } from "timeago.js";
 import { LikeFilled, CommentOutlined, LikeOutlined } from "@ant-design/icons";
 import { Image, Card, Dropdown } from "react-bootstrap";
-import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
 import { Link } from "react-router-dom";
 import { getUser } from "../../hooks/user.actions";
@@ -25,6 +24,8 @@ function Post(props) {
             })
             .catch((err) => console.error(err));
     };
+
+    
     
     const handleDelete = () => {
         axiosService
@@ -47,6 +48,8 @@ function Post(props) {
                 });
             });
     };
+
+    console.log("post", post);
 
     return (
         <>
@@ -99,7 +102,7 @@ function Post(props) {
                                 <small>{post.likes_count} like</small>
                             </p>
                         </div>
-                        {/* {!isSinglePost && (
+                        {!isSinglePost && (
                             <p className="ms-1 fs-6">
                                 <small>
                                     <Link to={`/post/${post.id}/`}>
@@ -107,7 +110,7 @@ function Post(props) {
                                     </Link>
                                 </small>
                             </p>
-                        )} */}
+                        )}
                     </div>
                 </Card.Body>
                 <Card.Footer className="d-flex bg-white w-50 justify-content-between border-0">

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { format } from "timeago.js";
 import { Image, Card, Dropdown } from "react-bootstrap";
-import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
 import { getUser } from "../../hooks/user.actions";
 import { Context } from "../Layout";
