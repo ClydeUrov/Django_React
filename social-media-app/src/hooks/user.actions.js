@@ -15,11 +15,11 @@ function useUserActions() {
     };
 
     // Edit the user
-    function edit(formData, userId) {
-        return axiosService.patch(`${baseURL}/user/${userId}/`, formData, {
+    function edit(data, userId) {
+        return axiosService.patch(`${baseURL}/user/${userId}/`, data, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-            }}).then((res) => {
+            },}).then((res) => {
             // Registration the account in the store
             localStorage.setItem(
                 "auth",
