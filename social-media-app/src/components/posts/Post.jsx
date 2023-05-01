@@ -49,8 +49,6 @@ function Post(props) {
             });
     };
 
-    console.log("post", post);
-
     return (
         <>
             <Card className="rounded-3 my-4">

@@ -6,8 +6,6 @@ function ProfileDetails(props) {
     const { user } = props;
     const navigate = useNavigate();
 
-    console.log("user", user)
-
     if (!user) {
         return <div>Loading...</div>;
     }

@@ -37,7 +37,6 @@ function CreateComment(props) {
             .post(`/post/${postId}/comment/`, data)
             .then(() => {
                 setForm({ ...form, body: "" });
-                console.log(setForm)
                 setToaster({
                     type: "success",
                     message: "Comment posted successfully 🚀",

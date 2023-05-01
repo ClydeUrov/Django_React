@@ -1,16 +1,33 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosService from "../helpers/axios";
 
 
 function useUserActions() {
     const navigate = useNavigate();
-    const baseURL = "http://localhost:8000/api/v1";
+    const baseURL = "http://127.0.0.1:8000/api/v1";
 
     return {
         login,
         register,
         logout,
+        edit
     };
+
+    // Edit the user
+    function edit(formData, userId) {
+        return axiosService.patch(`${baseURL}/user/${userId}/`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }}).then((res) => {
+            // Registration the account in the store
+            localStorage.setItem(
+                "auth",
+                JSON.stringify({access: getAccessToken(), refresh: getRefreshToken(), user: res.data,})
+                
+            );
+        });
+    }
 
     // Login the user
     function login(data) {
@@ -25,7 +42,7 @@ function useUserActions() {
     function register(data) {
         return axios.post(`${baseURL}/auth/register/`, data).then((res) => {
             // Registering the account and tokens in the store
-            setUserData(data);
+            setUserData(res.data);
             navigate("/home/");
         })
     }
@@ -68,4 +85,4 @@ function setUserData(data) {
     }));
 } 
 
-export { useUserActions, getUser,  getAccessToken, getRefreshToken };
+export { useUserActions, getUser,  getAccessToken, getRefreshToken, setUserData };

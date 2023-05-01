@@ -11,7 +11,6 @@ function Profile() {
     const { profileId } = useParams();
     
     const user = useSWR(`/user/${profileId}/`, fetcher);
-    console.log("here", user)
 
     const posts = useSWR(`/post/?author__public_id=${profileId}`, fetcher, {refreshInterval:20000});
 

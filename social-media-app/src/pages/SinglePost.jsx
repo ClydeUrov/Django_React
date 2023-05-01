@@ -9,7 +9,6 @@ import CreateComment from "../components/comments/CreateComment";
 import Comment from "../components/comments/Comment";
 
 function SinglePost() {
-    console.log("params", useParams())
     let { postId } = useParams();
 
     const post = useSWR(`/post/${postId}/`, fetcher);
