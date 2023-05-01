@@ -7,9 +7,6 @@ from core.user.models import User
 
 
 class UserSerializer(AbstractSerializer):
-    # id = serializers.UUIDField(source='public_id', read_only=True, format='hex')
-    # created = serializers.DateTimeField(read_only=True)
-    # updated = serializers.DateTimeField(read_only=True)
     posts_count = serializers.SerializerMethodField()
 
     def get_posts_count(self, instance):
@@ -22,8 +19,8 @@ class UserSerializer(AbstractSerializer):
             return representation
         if settings.DEBUG:  # debug enabled for dev
             request = self.context.get('request')
-            representation['avatar'] = request.build_absolute_url(representation['avatar'])
-            return representation
+            representation['avatar'] = request.build_absolute_uri(representation['avatar'])
+        return representation
 
     class Meta:
         model = User

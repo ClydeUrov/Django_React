@@ -1,18 +1,18 @@
-from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 from core.abstract import AbstractViewSet
+from core.auth.permissions import UserPermission
 from core.post.models import Post
 from core.post.serializers import PostSerializer
 
 
 class PostViewSet(AbstractViewSet):
     http_method_names = ('get', 'post', 'put', 'delete')
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (UserPermission, )
     serializer_class = PostSerializer
+    filterset_fields = ['author__public_id']
 
     def get_queryset(self):
         return Post.objects.all()
@@ -33,7 +33,7 @@ class PostViewSet(AbstractViewSet):
         post = self.get_object()
         user = self.request.user
         user.like(post)
-        serializer = self.serializer_class(post)
+        serializer = self.serializer_class(post, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -43,5 +43,5 @@ class PostViewSet(AbstractViewSet):
         user = self.request.user
         user.remove_like(post)
 
-        serializer = self.serializer_class(post)
+        serializer = self.serializer_class(post, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)

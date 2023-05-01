@@ -29,7 +29,6 @@ class CommentSerializer(AbstractSerializer):
         return value
 
     def validate_post(self, value):
-        print(self.instance)
         if self.instance:
             return self.instance.post
         return value
@@ -37,7 +36,7 @@ class CommentSerializer(AbstractSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         author = User.objects.get_object_by_public_id(rep["author"])
-        rep["author"] = UserSerializer(author).data
+        rep["author"] = UserSerializer(author, context=self.context).data
         return rep
 
     def update(self, instance, validated_data):
@@ -48,7 +47,5 @@ class CommentSerializer(AbstractSerializer):
 
     class Meta:
         model = Comment
-        fields = [
-            'id', 'author', 'post', 'body', 'edited', 'liked', 'likes_count', 'created', 'updated'
-        ]
+        fields = ['id', 'author', 'post', 'body', 'edited', 'liked', 'likes_count', 'created', 'updated']
         read_only_fields = ["edited"]
