@@ -51,11 +51,13 @@ function RegistrationForm() {
             noValidate
             validated={validated}
             onSubmit={handleSubmit}
+            data-testid="registration-form"
         >
             <Form.Group className="mb-3">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control 
-                    value={form.first_name} 
+                    value={form.first_name}
+                    data-testid="first_name-field"
                     onChange={(e) => setForm({ ...form, first_name: e.target.value})}
                     required
                     type="text"
@@ -70,6 +72,7 @@ function RegistrationForm() {
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control 
                     value={form.last_name} 
+                    data-testid="last_name-field"
                     onChange={(e) => setForm({ ...form, last_name: e.target.value})}
                     required
                     type="text"
@@ -83,7 +86,8 @@ function RegistrationForm() {
             <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
-                    value={form.username} 
+                    value={form.username}
+                    data-testid="username-field"
                     onChange={(e) => setForm({ ...form, username: e.target.value})}
                     required
                     type="text"
@@ -97,7 +101,8 @@ function RegistrationForm() {
             <Form.Group className="mb-3">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
-                    value={form.email} 
+                    value={form.email}
+                    data-testid="email-field"
                     onChange={(e) => setForm({ ...form, email: e.target.value})}
                     required
                     type="text"
@@ -111,7 +116,8 @@ function RegistrationForm() {
             <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                    value={form.password} 
+                    value={form.password}
+                    data-testid="password-field"
                     minLength="8"
                     onChange={(e) => setForm({ ...form, password: e.target.value})}
                     required
@@ -127,6 +133,7 @@ function RegistrationForm() {
                 <Form.Label>Bio</Form.Label>
                 <Form.Control
                     value={form.bio}
+                    data-testid="bio-field"
                     onChange={(e) => setForm({ ...form, bio: e.target.value})}
                     as="textarea"
                     rows={3}

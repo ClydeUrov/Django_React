@@ -43,11 +43,13 @@ function LoginForm() {
             noValidate
             validated={validated}
             onSubmit={handleSubmit}
+            data-testid="login-form"
         >
             <Form.Group className="mb-3">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                     value={form.email} 
+                    data-testid="email-field"
                     onChange={(e) => setForm({ ...form, email: e.target.value})}
                     required
                     type="text"
@@ -62,6 +64,7 @@ function LoginForm() {
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                     value={form.password} 
+                    data-testid="password-field"
                     minLength="8"
                     onChange={(e) => setForm({ ...form, password: e.target.value})}
                     required
