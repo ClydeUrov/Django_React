@@ -61,6 +61,7 @@ function CreateComment(props) {
             noValidate
             validated={validated}
             onSubmit={handleSubmit}
+            data-testid="create-comment-form"
         >
             <Image
                 src={user.avatar}
@@ -72,6 +73,7 @@ function CreateComment(props) {
             <Form.Group className="m-3 w-75">
                 <Form.Control
                     className="py-2 rounded-pill border-primary"
+                    data-testid="comment-body-field"
                     type="text"
                     placeholder="Write a comment"
                     value={form.body}
@@ -83,8 +85,9 @@ function CreateComment(props) {
                 <Button
                     variant="primary"
                     onClick={handleSubmit}
-                    disabled={form.body === undefined}
+                    disabled={!form.body}
                     size="small"
+                    data-testid="create-comment-submit"
                 >
                     Comment
                 </Button>

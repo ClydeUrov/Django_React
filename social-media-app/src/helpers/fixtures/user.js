@@ -14,7 +14,7 @@ function userFixtures() {
         email: `${firstName}@yopmail.com`,
         bio: faker.lorem.sentence(20),
         username: firstName + lastName,
-        avatar: null,
+        avatar: "https://avatars.dicebear.com/api/identicon/.svg",
         created: faker.date.recent(),
         updated: faker.date.recent(),
     };
