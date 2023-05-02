@@ -12,7 +12,7 @@ import EditProfile from "./pages/EditProfile";
 function App() {
   return (
     <Routes>
-      <Route path="/home/" element={
+      <Route path="/" element={
           <ProtectedRoute>
             <Home />
           </ProtectedRoute>
