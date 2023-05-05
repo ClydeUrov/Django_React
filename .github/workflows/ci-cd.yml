@@ -7,6 +7,8 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    resources:
+      memory: 4GB
     steps:
       - uses: actions/checkout@v2
       - name: Injecting env vars
@@ -26,8 +28,6 @@ jobs:
 
       - name: Building containers
         run: docker-compose up -d --build
-        resources:
-          memory: 4GB
 
       - name: Running Tests
         run: docker-compose exec -T api pytest
