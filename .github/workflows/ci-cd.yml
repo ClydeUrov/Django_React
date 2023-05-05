@@ -20,4 +20,7 @@ jobs:
           docker-compose logs
 
       - name: Running Tests inside Docker containers
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/web_dev
+          DATABASE_TEST_URL: postgres://postgres:postgres@localhost:5432/web_test
         run: docker-compose exec -T api pytest
