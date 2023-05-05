@@ -24,9 +24,6 @@ jobs:
                 DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
                 " >> .env
 
-      - name: Set memory limit
-        run: echo "::set-env name=MEMORY_LIMIT::4GB"
-
       - name: Building containers
         run: docker-compose up -d --build
 
