@@ -34,7 +34,7 @@ jobs:
       - name: Deploying Applications on EC2
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_EC_IP }}
+          host: ${{ secrets.SSH_EC2_IP }}
           username: ${{ secrets.SSH_EC2_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
