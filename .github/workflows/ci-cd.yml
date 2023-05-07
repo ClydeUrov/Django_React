@@ -41,3 +41,10 @@ jobs:
           script: |
             cd ~/.scripts
             ./docker-ec2-deploy.sh
+      - name: Debug
+        if: ${{ failure() }}
+        run: |
+          echo "Failed. Debugging info:"
+          echo "=================================="
+          cat /path/to/logfile.log
+          echo "=================================="
