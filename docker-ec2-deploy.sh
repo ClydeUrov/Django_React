@@ -2,7 +2,7 @@
 
 TARGER='main'
 
-cd ~/api || exit
+cd ~/app || exit
 
 ACTIONS_COLOR='\033[1;90m'
 NO_COLOR='\033[0m'
