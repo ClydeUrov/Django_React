@@ -39,7 +39,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            cd ~/.Django_React
+            cd ~/.scripts
             ./docker-ec2-deploy.sh
       - name: Debug
         if: ${{ failure() }}
