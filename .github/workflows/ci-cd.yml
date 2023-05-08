@@ -39,12 +39,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            cd ~/.scripts
+            cd ~/Django_React
             ./docker-ec2-deploy.sh
-      - name: Debug
-        if: ${{ failure() }}
-        run: |
-          echo "Failed. Debugging info:"
-          echo "=================================="
-          sudo grep sshd /var/log/auth.log | grep '2023-05-07 21:20:00' -A 50
-          echo "=================================="
