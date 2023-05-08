@@ -2,7 +2,7 @@
 
 TARGER='main'
 
-cd ~/app || exit
+cd ~/Django_React || exit
 
 ACTIONS_COLOR='\033[1;90m'
 NO_COLOR='\033[0m'
