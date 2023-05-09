@@ -3,6 +3,8 @@ name: Build and deploy frontend
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-test-deploy:
@@ -10,12 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./social-media-app/
+        working-directory: ./social-media-app
     steps:
       - uses: actions/checkout@v2
 
       - name: Injecting environment variables
-        run: echo "REACT_APP_API_URL=${{ secrets.API_URL }}" >> /home/ubuntu/Django_React/social-media-app/.env
+        run: echo "REACT_APP_API_URL=${{ secrets.API_URL }}" >> .env
 
       - name: Installing dependencies
         run: yarn install
