@@ -5,7 +5,8 @@ import axiosService from "../helpers/axios";
 
 function useUserActions() {
     const navigate = useNavigate();
-    const baseURL = "http://127.0.0.1:8000/api/v1";
+    const baseURL = process.env.REACT_APP_API_URL;
+    // const baseURL = "http://127.0.0.1:8000/api/v1";
 
     return {
         login,
