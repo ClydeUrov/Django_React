@@ -4,7 +4,7 @@ from core.fixtures.user import user
 
 
 class TestAuthenticationViewSet:
-    endpoint = '/api/v1/auth/'
+    endpoint = '/api/v1/'
 
     def test_login(self, client, user):
         data = {
@@ -49,9 +49,11 @@ class TestAuthenticationViewSet:
         assert response.data['access']
 
     def test_logout(self, client, user):
-        data = {"email": user.email, "password": "test_password"}
-        response = client.post(self.endpoint + 'login/', data)
+        data = {"email": user.email,"password": "test_password"}
+        response = client.post(self.endpoint + "login/", data)
         assert response.status_code == status.HTTP_200_OK
+
+        client.force_authenticate(user=user)
 
         data_refresh = {'refresh': response.data['refresh']}
         response = client.post(self.endpoint + 'logout/', data_refresh)

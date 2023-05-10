@@ -9,10 +9,10 @@ router = routers.SimpleRouter()
 
 router.register(r'user', UserViewSet, basename='user')
 
-router.register(r'auth/register', RegisterViewSet, basename='auth-register')
-router.register(r'auth/login', LoginViewSet, basename='auth-login')
-router.register(r'auth/refresh', RefreshViewSet, basename='auth-refresh')
-router.register(r'auth/logout', LogoutViewSet, basename='auth-logout')
+router.register(r'register', RegisterViewSet, basename='auth-register')
+router.register(r'login', LoginViewSet, basename='auth-login')
+router.register(r'refresh', RefreshViewSet, basename='auth-refresh')
+router.register(r'logout', LogoutViewSet, basename='auth-logout')
 
 router.register(r'post', PostViewSet, basename='post')
 
