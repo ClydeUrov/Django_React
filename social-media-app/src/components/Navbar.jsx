@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "./Layout";
 import { Navbar, Container, Image, NavDropdown, Nav } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { getUser } from "../hooks/user.actions";
+import { getUser, useUserActions } from "../hooks/user.actions";
 import { Link } from "react-router-dom";
 
 function Navigationbar() {
     const user = getUser();
-    const navigate = useNavigate();
+    const userActions = useUserActions();
+    const setToaster = useContext(Context);
+
     const handleLogout = () => {
-        localStorage.removeItem("auth");
-        navigate("/login/");
+        userActions.logout().catch((e) =>
+            setToaster({
+                type: "danger",
+                message: "Logout faild",
+                show: true,
+                title: e.data?.detail | "An error occured.",
+            })
+        );
     };
 
     return (
