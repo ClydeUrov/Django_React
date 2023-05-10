@@ -1,6 +1,7 @@
 from django.http.response import Http404
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from django.core.cache import cache
 
 from rest_framework.response import Response
 from rest_framework import status
@@ -47,6 +48,21 @@ class CommentViewSet(AbstractViewSet):
         serializer = self.serializer_class(comment)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def list(self, request, *args, **kwargs):
+        comment_objects = cache.get("comment_objects")
+
+        if comment_objects is None:
+            comment_objects = self.filter_queryset(self.get_queryset())
+            cache.set("comment_objects", comment_objects)
+
+        page = self.paginate_queryset(comment_objects)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(comment_objects, many=True)
+        return Response(serializer.data)
 
     @action(methods=['post'], detail=True)
     def remove_like(self, request, *args, **kwargs):
