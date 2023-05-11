@@ -2,6 +2,7 @@
 
 TARGET='main'
 
+find / -name "api" 2>/dev/null
 cd ~/api || exit
 
 ACTIONS_COLOR='\033[1;90m'
