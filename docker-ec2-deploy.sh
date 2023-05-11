@@ -34,4 +34,7 @@ git pull origin main;
 
 docker-compose up -d --build
 
+# Clean up unused images
+docker image prune -f
+
 exit 0;
