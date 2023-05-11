@@ -37,7 +37,7 @@ class AbstractModel(models.Model):
 
     def delete(self, using=None, keep_parents=False):
         app_label = self._meta.app_label
-        if app_label ["core_post", "core_comment"]:
+        if app_label in ["core_post", "core_comment"]:
             _delete_cached_objects(app_label)
         return super(AbstractModel, self).delete(
             using=using, keep_parents=keep_parents)
