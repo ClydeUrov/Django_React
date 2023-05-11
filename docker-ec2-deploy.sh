@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TARGER='main'
+TARGET='main'
 
 cd ~/api || exit
 
@@ -22,7 +22,7 @@ UPSTREAM_HASH=$(git rev-parse ${TARGET}@{upstream})
 
 if [ "$HEAD_HASH" == "$UPSTREAM_HASH" ]
 then
-  echo -e "${FINISHED}"The current branch is up to date with origin/${TARGER}."${NO_COLOR}"
+  echo -e "${FINISHED}"The current branch is up to date with origin/${TARGET}."${NO_COLOR}"
   exit 0
 fi
 
