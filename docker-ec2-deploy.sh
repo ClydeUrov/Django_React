@@ -27,14 +27,12 @@ then
 fi
 
 # If there are new changes, we pull these changes.
-
 git pull origin main;
-
-# We can now build and start the containers
-
-docker-compose up -d --build
 
 # Clean up unused images
 docker image prune -f
+
+# We can now build and start the containers
+docker-compose up -d --build
 
 exit 0;
