@@ -32,7 +32,7 @@ function useUserActions() {
 
     // Login the user
     function login(data) {
-        return axios.post(`${baseURL}/auth/login/`, data).then((res) => {
+        return axios.post(`${baseURL}/login/`, data).then((res) => {
             // Registering the account and tokens in the store
             setUserData(res.data);
             navigate("/");
@@ -41,7 +41,7 @@ function useUserActions() {
 
     // Login the user
     function register(data) {
-        return axios.post(`${baseURL}/auth/register/`, data).then((res) => {
+        return axios.post(`${baseURL}/register/`, data).then((res) => {
             // Registering the account and tokens in the store
             setUserData(res.data);
             navigate("/");
@@ -51,7 +51,7 @@ function useUserActions() {
     // Logout the user
     function logout() {
         return axiosService
-            .post(`${baseURL}/auth/logout/`, { refresh: getRefreshToken() })
+            .post(`${baseURL}/logout/`, { refresh: getRefreshToken() })
             .then(() => {
                 localStorage.removeItem("auth");
                 navigate("/login/");

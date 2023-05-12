@@ -25,7 +25,7 @@ axiosService.interceptors.request.use(
 const refreshAuthLogic = async (failedRequest) => {
     return axios
         .post(
-            "/auth/refresh/",
+            "/refresh/",
             {
                 refresh: getRefreshToken(),
             },
