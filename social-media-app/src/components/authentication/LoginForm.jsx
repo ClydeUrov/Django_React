@@ -13,7 +13,7 @@ function LoginForm() {
     });
     const [error, setError] = useState(null);
     const userActions = useUserActions();
-
+    console.log("I'm in Login Form")
     const handleSubmit = (event) => {
         event.preventDefault(); // перезагружаем страницу
         const loginForm = event.currentTarget;
