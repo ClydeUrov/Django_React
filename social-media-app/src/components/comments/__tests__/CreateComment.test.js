@@ -5,6 +5,7 @@ import { setUserData } from "../../../hooks/user.actions";
 import userFixtures from "../../../helpers/fixtures/user";
 import { faker } from "@faker-js/faker";
 import { v4 as uuid4 } from "uuid";
+import { act } from "react-dom/test-utils";
 
 const userData = userFixtures();
 
@@ -37,7 +38,9 @@ test("Renders CreateComment component", async () => {
     expect(submitButton.disabled).toBeTruthy();
 
     const commentBody = faker.lorem.sentence(10);
-    await user.type(commentBodyField, commentBody);
+    await act(async () => {
+        await user.type(commentBodyField, commentBody);
+    });
 
     // Checking if field has the text and button is not disabled
     expect(commentBodyField.value).toBe(commentBody);

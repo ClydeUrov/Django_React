@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import RegistrationForm from "../RegistrationForm";
 import { faker } from "@faker-js/faker";
 import userFixtures from "../../../helpers/fixtures/user";
+import { act } from "react-dom/test-utils";
 
 const userData = userFixtures();
 
@@ -29,11 +30,13 @@ test("renders Login form", async () => {
     expect(bioField).toBeInTheDocument();
 
     const password = faker.lorem.slug(2);
-    await user.type(firstnameField, userData.first_name);
-    await user.type(lastnameField, userData.last_name);
-    await user.type(emailField, userData.email);
-    await user.type(passwordField, password);
-    await user.type(bioField, userData.bio);
+    await act(async () => {
+        await user.type(firstnameField, userData.first_name);
+        await user.type(lastnameField, userData.last_name);
+        await user.type(emailField, userData.email);
+        await user.type(passwordField, password);
+        await user.type(bioField, userData.bio);
+    });
 
     expect(firstnameField.value).toBe(userData.first_name);
     expect(lastnameField.value).toBe(userData.last_name);

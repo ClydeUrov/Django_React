@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from "../../../helpers/test-utils"
 import userEvent from "@testing-library/user-event";
 import CreatePost from "../CreatePost"
 import { faker } from "@faker-js/faker";
+import { act } from "react-dom/test-utils";
 
 test("Renders CreatePost component", async () => {
     const user = userEvent;
@@ -25,7 +26,9 @@ test("Renders CreatePost component", async () => {
     expect(submitButton.disabled).toBeTruthy();
 
     const postBody = faker.lorem.sentence(10);
-    await user.type(postBodyField, postBody);
+    await act(async () => {
+        await user.type(postBodyField, postBody);
+    });
 
     // Checking if field has the text and button is not disabled
     expect(postBodyField.value).toBe(postBody);

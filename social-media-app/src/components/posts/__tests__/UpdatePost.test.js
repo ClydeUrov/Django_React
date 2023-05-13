@@ -4,6 +4,7 @@ import UpdatePost from "../UpdatePost";
 import userFixtures from "../../../helpers/fixtures/user";
 import postFixtures from "../../../helpers/fixtures/post";
 import { faker } from "@faker-js/faker";
+import { act } from "react-dom/test-utils";
 
 const userData = userFixtures();
 const postData = postFixtures(true, false, userData);
@@ -27,7 +28,9 @@ test("Render UpdatePost component", async () => {
     expect(submitButton).toBeInTheDocument();
 
     const postBody = faker.lorem.sentence(10);
-    await user.type(postBodyField, postBody);
+    await act(async () => {
+        await user.type(postBodyField, postBody);
+    });
 
     // Checking if field has the text and button is not disabled
     expect(postBodyField.value).toBe(postData.body + postBody);

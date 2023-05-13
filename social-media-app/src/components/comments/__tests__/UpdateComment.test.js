@@ -5,6 +5,7 @@ import userFixtures from "../../../helpers/fixtures/user";
 import postFixtures from "../../../helpers/fixtures/post";
 import commentFixtures from "../../../helpers/fixtures/comment";
 import { faker } from "@faker-js/faker";
+import { act } from "react-dom/test-utils";
 
 const userData = userFixtures();
 const postData = postFixtures(true, false, userData);
@@ -29,7 +30,9 @@ test("Render UpdateComment component", async () => {
     expect(submitButton).toBeInTheDocument();
 
     const commentBody = faker.lorem.sentence(10);
-    await user.type(commentBodyField, commentBody);
+    await act(async () => {
+        await user.type(commentBodyField, commentBody);
+    });
 
     // Checking if field has the text and button is not disabled
     expect(commentBodyField.value).toBe(commentData.body + commentBody);
