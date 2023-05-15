@@ -16,8 +16,6 @@ function Home() {
 
     const user = getUser();
 
-    console.log(user)
-
     if (!user) {
         return <div>Loading!</div>;
     }

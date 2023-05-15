@@ -17,7 +17,6 @@ function RegistrationForm() {
     });
     const [error, setError] = useState(null);
     const userActions = useUserActions()
-    console.log("I'm in Registr Form")
 
     const handleSubmit = (event) => {
         event.preventDefault(); // перезагружаем страницу
