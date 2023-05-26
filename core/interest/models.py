@@ -40,5 +40,3 @@ class Interest(models.Model):
 
     def __str__(self):
         return self.author.name
-
-

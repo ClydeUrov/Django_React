@@ -7,8 +7,7 @@ from core.auth.permissions import UserPermission
 
 
 class LogoutViewSet(viewsets.ViewSet):
-    authentication_classes = ()
-    permission_classes = (UserPermission,)
+    permission_classes = (permissions.IsAuthenticated,)
     http_method_names = ['post']
 
     def create(self, request, *args, **kwargs):
