@@ -17,12 +17,16 @@ router.register(r'logout', LogoutViewSet, basename='auth-logout')
 
 router.register(r'post', PostViewSet, basename='post')
 
-router.register(r'interest', InterestViewSet, basename='interest')
+# router.register(r'interest', InterestViewSet, basename='interest')
 
 posts_router = routers.NestedSimpleRouter(router, r'post', lookup='post')
 posts_router.register(r'comment', CommentViewSet, basename='post-comment')
 
+interests_router = routers.NestedSimpleRouter(router, r'user', lookup='user')
+interests_router.register(r'interest', InterestViewSet, basename='interest')
+
 urlpatterns = [
     *router.urls,
-    *posts_router.urls
+    *posts_router.urls,
+    *interests_router.urls
 ]

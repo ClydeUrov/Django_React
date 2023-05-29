@@ -8,6 +8,8 @@ from core.user.serializers import UserSerializer
 
 
 class InterestSerializer(AbstractSerializer):
+    author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
+
     def validate_author(self, value):
         if self.context["request"].user != value:
             raise ValidationError("You can`t create a post for another user.")
@@ -15,12 +17,11 @@ class InterestSerializer(AbstractSerializer):
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        author = User.objects.get_user_by_public_id(rep['author'])
+        author = User.objects.get(public_id=rep['author'])
         rep['author'] = UserSerializer(author, context=self.context).data
-        print(rep)
         return rep
 
     class Meta:
         model = Interest
-        field = '__all__'
+        fields = ['author', 'interest', 'created', 'updated']
 

@@ -35,7 +35,6 @@ class PostSerializer(AbstractSerializer):
         rep = super().to_representation(instance)
         author = User.objects.get_object_by_public_id(rep["author"])
         rep["author"] = UserSerializer(author, context=self.context).data
-
         return rep
 
     def update(self, instance, validated_data):
