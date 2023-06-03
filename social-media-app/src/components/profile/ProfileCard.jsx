@@ -10,11 +10,9 @@ function ProfileCard(props) {
         navigate(`/profile/${user.id}/`)
     };
 
-    
-
     return (
         <Card className="border-0 p-2">
-            <div className="d-flax">
+            <div className="d-flex">
                 <Image
                     src={user.avatar}
                     roundedCircle

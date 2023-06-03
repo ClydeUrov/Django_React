@@ -22,15 +22,21 @@ class InterestViewSet(AbstractViewSet):
         queryset = Interest.objects.filter(author__public_id=user_pk)
         return queryset
 
-    def get_object(self):
-        obj = Interest.objects.get(pk=self.kwargs['pk'])
-        self.check_object_permissions(self.request, obj)
-        return obj
+    def destroy(self, request, *args, **kwargs):
+        interest = Interest.objects.get(pk=self.kwargs['pk'])
+        if interest:
+            self.check_object_permissions(self.request, interest)
+            interest.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        elif interest is None:
+            return Http404
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
+        interest_objects = Interest.objects.filter(author=request.user)
+        cache.set("interest_objects", interest_objects)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def list(self, request, *args, **kwargs):

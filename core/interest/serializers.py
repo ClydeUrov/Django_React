@@ -8,6 +8,7 @@ from core.user.serializers import UserSerializer
 
 
 class InterestSerializer(AbstractSerializer):
+    id = serializers.PrimaryKeyRelatedField(read_only=True)
     author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
 
     def validate_author(self, value):

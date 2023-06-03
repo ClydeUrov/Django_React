@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Interest from "./Interest";
 
 function ProfileDetails(props) {
     const { user } = props;
@@ -33,6 +34,10 @@ function ProfileDetails(props) {
                     >
                         Edit
                     </Button>
+                </div>
+                <div className="d-flex flex-column justify-content-right align-self-right mt-2 ml-auto">
+                    <p className="fs-4">Interests: </p>
+                    <Interest userId={user.id} />
                 </div>
             </div>
         </div>
