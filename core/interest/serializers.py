@@ -23,5 +23,5 @@ class InterestSerializer(AbstractSerializer):
 
     class Meta:
         model = Interest
-        fields = ['id', 'author', 'interest']
+        fields = ['id', 'author', 'name']
 

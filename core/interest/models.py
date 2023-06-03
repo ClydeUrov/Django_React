@@ -10,7 +10,7 @@ class InterestManager(models.Manager):
 
 class Interest(models.Model):
     name = models.CharField(max_length=100)
-    author = models.ManyToManyField(User, related_name='interests')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     objects = InterestManager()
 

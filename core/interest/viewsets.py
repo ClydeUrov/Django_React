@@ -16,34 +16,16 @@ class InterestViewSet(AbstractViewSet):
     serializer_class = InterestSerializer
 
     def get_queryset(self):
-        # if self.request.user.is_superuser:
-        #     return Interest.objects.all()
-        print("kwargs", self.kwargs)
         user_pk = self.kwargs['user_pk']
-
         if user_pk is None:
             return Http404
-        # queryset = Interest.objects.filter(author__public_id=user_pk)
-
-        # Дополнительные фильтры или сортировка, если необходимо
-        print("request.user", self.request.user)
-        queryset = super().get_queryset()
-        queryset = queryset.filter(author=self.request.user)
+        queryset = Interest.objects.filter(author__public_id=user_pk)
         return queryset
 
     def get_object(self):
-        # obj = Interest.objects.get(self.kwargs['pk'])
-
-        # Дополнительные действия при получении отдельного объекта
-        obj = super().get_object()
+        obj = Interest.objects.get(pk=self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)
         return obj
-
-    # def destroy(self, request, *args, **kwargs):
-    #     obj = Interest.objects.filter(interest=self.kwargs['pk']).first()
-    #     self.check_object_permissions(self.request, obj)
-    #     obj.delete()
-    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, context={'request': request})
