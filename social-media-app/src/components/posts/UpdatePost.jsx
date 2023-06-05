@@ -5,7 +5,6 @@ import { Context } from "../Layout";
 
 function UpdatePost(props) {
     const { post, refresh } = props;
-    // const [showToast, setShowToast] = useState(false);
     const [show, setShow] = useState(false);
     const [form, setForm] = useState({
         author: post.author.id,

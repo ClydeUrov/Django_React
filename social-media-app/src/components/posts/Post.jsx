@@ -24,7 +24,6 @@ function Post(props) {
             })
             .catch((err) => console.error(err));
     };
-
     
     
     const handleDelete = () => {
@@ -64,7 +63,7 @@ function Post(props) {
                                 className="me-2 border border-primary border-2"
                             />
                             <div className="d-flex flex-column justify-content-start align-self-center mt-2">
-                                <p className="fs-6 m-0">{post.author.name}</p>
+                                <p className="fs-6 m-0">{post.author.username}</p>
                                 <p className="fs-6 fw-lighter">
                                     <small>{format(post.created)}</small>
                                 </p>
@@ -84,6 +83,7 @@ function Post(props) {
                             </div>
                         )}
                     </Card.Title>
+                    <Card.Text className="fw-bold fs-4">{post.title}</Card.Text>
                     <Card.Text>{post.body}</Card.Text>
                     <div className="d-flex flex-row justify-content-between">
                         <div className="d-flex flex-row">
@@ -110,9 +110,12 @@ function Post(props) {
                                 </small>
                             </p>
                         )}
+                        {post.location ? (
+                            <a href={`https://www.google.com/maps/place/${post.location}`}>Location</a>
+                        ) : null}
                     </div>
                 </Card.Body>
-                <Card.Footer className="d-flex bg-white w-50 justify-content-between border-0">
+                <Card.Footer className="d-flex bg-white w-60 justify-content-between border-0 ">
                     <div className="d-flex flex-row">
                         <LikeOutlined 
                             style={{
@@ -135,8 +138,8 @@ function Post(props) {
                         </p>
                     </div>
                     {!isSinglePost && (
-                        <div className="d-flex align-items-center">
-                            <Link to={`/post/${post.id}/`} className="d-flex align-items-center">
+                        <div className="d-flex ">
+                            <Link to={`/post/${post.id}/`} className="d-flex">
                                 <CommentOutlined
                                     style={{
                                         width: "24px",
@@ -152,6 +155,9 @@ function Post(props) {
                             </Link>
                         </div>
                     )}
+                    {post.contacts ? (
+                        <p><small>{post.contacts}</small></p>
+                    ) : null}
                 </Card.Footer>
             </Card>
         </>

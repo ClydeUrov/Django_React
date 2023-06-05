@@ -10,9 +10,6 @@ function CreatePost(props) {
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
     const [form, setForm] = useState({});
-    // const [showToast, setShowToast] = useState(false);
-    // const [toastMessage, setToastMessage] = useState("");
-    // const [toastType, setToastType] = useState("");
 
     const { setToaster } = useContext(Context);
 
@@ -32,7 +29,13 @@ function CreatePost(props) {
 
         const data = {
             author: user.id,
-            body: form.body
+            title: form.title,
+            body: form.body,
+            event_date: form.event_date,
+            event_duration: form.event_duration,
+            price: form.price,
+            contacts: form.contacts,
+            location: form.location
         }
 
         axiosService
@@ -81,14 +84,85 @@ function CreatePost(props) {
                         onSubmit={handleSubmit} 
                         data-testid="create-post-form"
                     >
-                        <Form.Group className="mb-3">
+                        <Form.Group className="">
+                            <Form.Label htmlFor="title" className="mb-0 mt-0">Title: </Form.Label>
+                            <Form.Control 
+                                name="title"
+                                data-testid="post-title-field"
+                                label="Title"
+                                placeholder="Enter your title"
+                                value={form.title} 
+                                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                                as="textarea"
+                                rows={1}
+                            />
+                            <Form.Label htmlFor="body" className="mb-0 mt-2">Description: </Form.Label>
                             <Form.Control 
                                 name="body"
                                 data-testid="post-body-field"
+                                placeholder="Enter your description"
                                 value={form.body} 
                                 onChange={(e) => setForm({ ...form, body: e.target.value })}
                                 as="textarea"
                                 rows={3}
+                            />
+                            <Form.Label htmlFor="price" className="mb-0 mt-2">Price: </Form.Label>
+                            <div className="d-flex align-items-center">
+                                <Form.Control 
+                                    name="price"
+                                    data-testid="post-price-field"
+                                    placeholder="Enter your price"
+                                    value={form.price}
+                                    onChange={(e) => setForm({ ...form, price: e.target.value })}
+                                    as="input"
+                                    type="number"
+                                    rows={2}
+                                    step="0.01"
+                                    min="0"
+                                    max="1000000"
+                                />
+                                <span className="ms-2">$</span>
+                            </div>
+                            
+                            <Form.Label htmlFor="event_date" className="mb-0 mt-2">Event Date:</Form.Label>
+                            <Form.Control 
+                                name="event_date"
+                                data-testid="event-date-field"
+                                type="datetime-local"
+                                value={form.event_date}
+                                onChange={(e) => setForm({ ...form, event_date: e.target.value })}
+                            />
+                        
+                            <Form.Label htmlFor="event_duration" className="mb-0 mt-2">Duration:</Form.Label>
+                            <Form.Control 
+                                data-testid="event_duration"
+                                name="event_duration"
+                                type="text"
+                                placeholder="_ days __:__:__"
+                                value={form.event_duration}
+                                onChange={(e) => setForm({ ...form, event_duration: e.target.value })}
+                                
+                            />
+                            <Form.Label htmlFor="contacts" className="mb-0 mt-2">Contacts:</Form.Label>
+                            <Form.Control 
+                                data-testid="contacts"
+                                name="contacts"
+                                type="text"
+                                placeholder="Enter your contacts"
+                                value={form.contacts}
+                                onChange={(e) => setForm({ ...form, contacts: e.target.value })}
+                                
+                            />
+
+                            <Form.Label htmlFor="location" className="mb-0 mt-2">location:</Form.Label>
+                            <Form.Control 
+                                data-testid="location"
+                                name="location"
+                                type="text"
+                                placeholder="Enter your location"
+                                value={form.location}
+                                onChange={(e) => setForm({ ...form, location: e.target.value })}
+                                
                             />
                         </Form.Group>
                     </Form>
