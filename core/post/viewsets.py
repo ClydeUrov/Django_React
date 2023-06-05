@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -58,6 +59,13 @@ class PostViewSet(AbstractViewSet):
         post = self.get_object()
         user = self.request.user
         user.remove_like(post)
+
+        serializer = self.serializer_class(post, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['post'], detail=True)
+    def map(self, request, *args, **kwargs):
+        post = self.get_object()
 
         serializer = self.serializer_class(post, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
