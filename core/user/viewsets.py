@@ -16,6 +16,9 @@ class UserViewSet(AbstractViewSet):
             return User.objects.all()
         return User.objects.exclude(is_superuser=True)
 
+    def get_serializer_context(self):
+        return {'request': self.request}
+
     def get_object(self):
         obj = User.objects.get_object_by_public_id(self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)

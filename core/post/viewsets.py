@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -8,6 +8,8 @@ from core.auth.permissions import UserPermission
 from core.post.models import Post
 from core.post.serializers import PostSerializer
 from django.core.cache import cache
+
+from core.user.models import User
 
 
 class PostViewSet(AbstractViewSet):
@@ -20,20 +22,18 @@ class PostViewSet(AbstractViewSet):
         return Post.objects.all()
 
     def get_object(self):
-        obj = Post.objects.get_object_by_public_id(self.kwargs['pk'])
+        obj = Post.objects.get_object_by_public_id(self.kwargs["pk"])
         self.check_object_permissions(self.request, obj)
         return obj
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
     def list(self, request, *args, **kwargs):
+        author_public_id = request.query_params.get("author__public_id")
         post_objects = cache.get("post_objects")
-
-        if post_objects is None:
+        if author_public_id:
+            author = get_object_or_404(User, public_id=author_public_id)
+            post_objects = Post.objects.filter(author=author)
+            cache.set("post_objects", post_objects)
+        else:
             post_objects = self.filter_queryset(self.get_queryset())
             cache.set("post_objects", post_objects)
 
@@ -44,6 +44,12 @@ class PostViewSet(AbstractViewSet):
 
         serializer = self.get_serializer(post_objects, many=True)
         return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(methods=['post'], detail=True)
     def like(self, request, *args, **kwargs):

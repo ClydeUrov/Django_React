@@ -28,13 +28,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name="post",
-            name="images",
-            field=models.ImageField(
-                blank=True, null=True, upload_to=core.post.models.post_directory_path
-            ),
-        ),
-        migrations.AddField(
-            model_name="post",
             name="location",
             field=models.CharField(blank=True, max_length=255, null=True),
         ),

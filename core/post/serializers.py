@@ -47,7 +47,7 @@ class PostSerializer(AbstractSerializer):
         model = Post
         # List of all the fields that can be included in a request or a response
         fields = [
-            'id', 'author', 'title', 'body', 'edited', 'liked', 'images', 'event_date',
+            'id', 'author', 'title', 'body', 'edited', 'liked', 'event_date',
             'event_duration', 'location', 'likes_count', 'comments_count', 'created', 'updated',
             'price', 'contacts'
         ]
