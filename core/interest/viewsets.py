@@ -17,13 +17,16 @@ class InterestViewSet(AbstractViewSet):
 
     def get_queryset(self):
         user_pk = self.kwargs['user_pk']
+        print("user_pk", user_pk)
         if user_pk is None:
             return Http404
         queryset = Interest.objects.filter(author__public_id=user_pk)
         return queryset
 
     def destroy(self, request, *args, **kwargs):
+        print(self.kwargs['pk'])
         interest = Interest.objects.get(pk=self.kwargs['pk'])
+        print(interest)
         if interest:
             self.check_object_permissions(self.request, interest)
             interest.delete()

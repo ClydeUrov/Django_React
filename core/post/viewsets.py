@@ -28,7 +28,7 @@ class PostViewSet(AbstractViewSet):
 
     def list(self, request, *args, **kwargs):
         author_public_id = request.query_params.get("author__public_id")
-        post_objects = cache.get("post_objects")
+        # post_objects = cache.get("post_objects")
         if author_public_id:
             author = get_object_or_404(User, public_id=author_public_id)
             post_objects = Post.objects.filter(author=author)

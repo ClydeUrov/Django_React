@@ -7,11 +7,13 @@ import Login from "./pages/Login";
 import SinglePost from "./pages/SinglePost";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import Main from "./pages/Main";
 
 
 function App() {
   return (
     <Routes>
+      <Route path="/main/" element={<Main />} />
       <Route path="/" element={
           <ProtectedRoute>
             <Home />
