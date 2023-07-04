@@ -3,16 +3,14 @@ import Header from "../components/mains/Header";
 // import Navigation from "../components/mains/Navigation";
 import Content from "../components/mains/Content";
 import Footer from "../components/mains/Footer";
-import Comp from "../components/mains/Comp";
 
 
 function Main(){
     return (
-        <div className="content">
+        <div className="main-content bg-dark">
             <Header />
             {/* <Navigation />*/}
-            <Content /> 
-            <Comp />
+            <Content />
             <Footer />
         </div>
     )
