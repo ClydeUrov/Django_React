@@ -93,26 +93,26 @@ export default function App() {
 
             <MDBContainer className='p-1 pb-0'>
                 <div className='mb-1'>
-                    <a style={{ fontSize: 'xx-large' }} color="light" floating className='m-4' href='#!' role='button'>
+                    <a style={{ fontSize: 'xx-large' }} color="light" className='m-4' href='#!' role='button'>
                         <FaFacebook />
                     </a>
 
-                    <a style={{ fontSize: 'xx-large' }} outline color="light" className='m-4' href='#!' role='button'>
+                    <a style={{ fontSize: 'xx-large' }} color="light" className='m-4' href='#!' role='button'>
                         <FaTwitter />
                     </a>
 
-                    <a style={{ fontSize: 'xx-large' }} outline color="light" floating className='m-4' href='#!' role='button'>
+                    <a style={{ fontSize: 'xx-large' }} color="light" className='m-4' href='#!' role='button'>
                         <FaGoogle />
                     </a>
-                    <a style={{ fontSize: 'xx-large' }} outline color="light" floating className='m-4' href='#!' role='button'>
+                    <a style={{ fontSize: 'xx-large' }} color="light" className='m-4' href='#!' role='button'>
                         <FaInstagram />
                     </a>
 
-                    <a style={{ fontSize: 'xx-large' }} outline color="light" floating className='m-4' href='#!' role='button'>
+                    <a style={{ fontSize: 'xx-large' }} color="light" className='m-4' href='#!' role='button'>
                         <FaLinkedin />
                     </a>
 
-                    <a style={{ fontSize: 'xx-large' }} outline color="light" floating className='m-4' href='#!' role='button'>
+                    <a style={{ fontSize: 'xx-large' }} color="light" className='m-4' href='#!' role='button'>
                         <FaGithub />
                     </a>
                 </div>

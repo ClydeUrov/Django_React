@@ -1,13 +1,14 @@
 import React, {useRef} from 'react';
 import { motion, useInView } from "framer-motion";
 import '../mains/styles.css'
+import Slideshow from "../mains/Slideshow"
 
 function TextSection({ children }) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
 
     const textStyle = {
-        transform: isInView ? "none" : "translateY(400px)",
+        transform: isInView ? "none" : "translateX(300px)",
         opacity: isInView ? 1 : 0,
         transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
     }
@@ -26,7 +27,7 @@ function ImageSection({ children }) {
     const isInView = useInView(ref, { once: true });
 
     const imageStyle = {
-        transform: isInView ? "none" : "translateX(400px)",
+        transform: isInView ? "none" : "translateY(300px)",
         opacity: isInView ? 1 : 0,
         transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
     }
@@ -40,10 +41,29 @@ function ImageSection({ children }) {
     );
 }
 
+function ItemSection({ children }) {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
+
+    const imageStyle = {
+        transform: isInView ? "none" : "translate(300px, 300px)",
+        opacity: isInView ? 1 : 0,
+        transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+    }
+
+    return (
+        <div ref={ref} className='mt-4 mx-auto'>
+            <div style={imageStyle}>
+                {children}
+            </div>
+        </div>
+    );
+}
+
 const Content = () => {
 
     return (
-        <div className='text-center text-white body-content'>
+        <div className='text-center text-white body-content m-auto'>
             <div className='tourism'>
                 <div className='content-text text-center mb-5'>
                     <h2 className='animated-text'>Welcome to the World of Travel</h2>
@@ -108,6 +128,34 @@ const Content = () => {
                         <img className='animated-image' src='https://klike.net/uploads/posts/2019-11/1574605271_10.jpg' alt='' width='100%' height='100%' />
                     </ImageSection>
                 </div>
+                <div className='mb-4 d-flex flex-row align-items-start'>
+                    <ItemSection>
+                        <h3>Choose what you would like to visit</h3>
+                        <div className='d-flex'>
+                            <motion.div whileHover={{ scale: 1.8 }} className='m-3 btn btn-outline-info'>
+                                Cicling
+                            </motion.div>
+                            <motion.div whileHover={{ scale: 1.8 }} className='m-3 btn btn-outline-info'>
+                                Diving
+                            </motion.div>
+                            <motion.div whileHover={{ scale: 1.8 }} className='m-3 btn btn-outline-info'>
+                                Rafting
+                            </motion.div>
+                            <motion.div whileHover={{ scale: 1.8 }} className='m-3 btn btn-outline-info'>
+                                Dancing
+                            </motion.div>
+                            <motion.div whileHover={{ scale: 1.8 }} className='m-3 btn btn-outline-info'>
+                                Singing
+                            </motion.div>
+                        </div>
+                    </ItemSection>
+                </div>
+                <div className='d-flex flex-column'>
+                    <h3 className='mb-4'>User Reviews</h3>
+                    <div style={{justifyContent: 'center' }}>
+                        <Slideshow />
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -140,8 +188,9 @@ const Content = () => {
             //         </motion.div>
             //     </div>
 
-                
             // </div>
+
+
     );
 };
 
