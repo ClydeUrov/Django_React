@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 export default function App() {
 
@@ -13,7 +14,7 @@ export default function App() {
                     <div className='text-white'>
                         <h1 className='mb-3'>Travel Social Network</h1>
                         <h4 className='mb-3'>Join us and we will show you all upcoming events</h4>
-                        <button className="btn btn-primary btn-lg" href='http://127.0.0.1:3000/login/'>Join Us</button>
+                        <Link className="btn btn-primary btn-lg" to="/login/">Join Us</Link>
                     </div>
                 </div>
                 </div>

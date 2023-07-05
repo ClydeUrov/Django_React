@@ -8,7 +8,7 @@ function Registration() {
             <div className="row">
                 <div className="col-md-6 d-flex align-items-center">
                     <div className="content text_center px-4">
-                        <h1 className="text-primary">Welcome to Postagram!</h1>
+                        <h1 className="text-primary">Welcome to <br /> Travel Social Network!</h1>
                         <p className="content">
                             This is a new social media site that will allow you to share your thoughts and
                             experiences with your friends. Register now and start enjoying! <br />

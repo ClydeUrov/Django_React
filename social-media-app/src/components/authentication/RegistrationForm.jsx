@@ -38,7 +38,27 @@ function RegistrationForm() {
 
         userActions.register(data).catch((err) => {
             if (err.message) {
-                setError(err.request.response);
+                const errorResponse = JSON.parse(err.request.response);
+                let errorMessage = "";
+
+                if (errorResponse.email) {
+                    errorMessage += "Email: " + errorResponse.email + "\n";
+                }
+                if (errorResponse.username) {
+                    errorMessage += "Username: " + errorResponse.username + "\n";
+                }
+                if (errorResponse.first_name) {
+                    errorMessage += "First Name: " + errorResponse.first_name + "\n";
+                }
+                if (errorResponse.last_name) {
+                    errorMessage += "Last Name: " + errorResponse.last_name + "\n";
+                }
+                if (errorResponse.password) {
+                    errorMessage += "Password: " + errorResponse.password + "\n";
+                }
+
+                console.log(errorMessage)
+                setError(errorMessage);
             }
         });
 
@@ -141,8 +161,8 @@ function RegistrationForm() {
                 />
             </Form.Group>
 
-            <div className="text-content text-danger">
-                {error && <p>{error}</p>}
+            <div className="text-content text-danger" style={{ whiteSpace: 'pre-line' }}>
+                {error && <pre>{error}</pre>}
             </div>
 
             <Button variant="primary" type="submit">
