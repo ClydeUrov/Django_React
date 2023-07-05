@@ -150,11 +150,9 @@ const Content = () => {
                         </div>
                     </ItemSection>
                 </div>
-                <div className='d-flex flex-column'>
-                    <h3 className='mb-4'>User Reviews</h3>
-                    <div style={{justifyContent: 'center' }}>
-                        <Slideshow />
-                    </div>
+                <div className="d-flex flex-column">
+                    <h3 className="mb-4">User Reviews</h3>
+                    <Slideshow />
                 </div>
             </div>
         </div>

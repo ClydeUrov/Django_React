@@ -29,22 +29,26 @@ const Slideshow = () => {
     };
 
     return (
-        <div className="d-flex justify-content-center position-relative align-items-center flex-column" style={{height: '39vh'}}>
-            <div className="d-flex" style={{height: '39vh', width: '30vh'}}>
-                <AnimatePresence>
+        // <div className="d-flex justify-content-center align-items-center flex-column" style={{ minHeight: '39vh' }}>
+        <div className="justify-content-center flex-column">
+            <div className="m-auto" style={{ minHeight: '300px', width: '100%' }}>
+            <AnimatePresence>
                 {images.map((image, index) => (
-                <div key={index}>
+                <div key={index} className="position-relative d-flex justify-content-center">
                     {/* Следующая картинка */}
                     <motion.img
                     src={images[(currentImage + 1) % images.length]}
                     alt={`Image ${currentImage + 1}`}
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.1 }}
+                    animate={{ opacity: 0.09 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                     style={{
                         position: 'absolute',
-                        transform: 'translateX(80%) scale(0.7)',
+                        transform: 'translateX(90%) scale(0.8)',
+                        height: '270px',
+                        width: '270px',
+                        borderRadius: '20%'
                     }}
                     />
 
@@ -56,7 +60,13 @@ const Slideshow = () => {
                     animate={{ opacity: currentImage === index ? 1 : 0 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
-                    style={{ position: 'absolute', maxHeight: '100%' }}
+                    style={{ 
+                        position: 'absolute', 
+                        height: '300px', 
+                        width: '300px', 
+                        borderRadius: '20%',
+                        zIndex: 1
+                    }}
                     />
 
                     {/* Предыдущая картинка */}
@@ -64,35 +74,22 @@ const Slideshow = () => {
                     src={images[(currentImage - 1 + images.length) % images.length]}
                     alt={`Image ${currentImage - 1}`}
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.1 }}
+                    animate={{ opacity: 0.09 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                     style={{
                         position: 'absolute',
-                        transform: 'translateX(-80%) scale(0.7)',
-                        maxHeight: '100%',
+                        transform: 'translateX(-90%) scale(0.8)',
+                        height: '270px',
+                        width: '270px',
+                        borderRadius: '20%'
                     }}
                     />
                 </div>
                 ))}
-
-                        {/*
-                    // <motion.img
-                    //     key={index}
-                    //     src={image}
-                    //     className='rounded-5'
-                    //     alt={`Image ${index + 1}`}
-                    //     initial={{ opacity: 0 }}
-                    //     animate={{ opacity: currentImage === index ? 1 : 0 }}
-                    //     exit={{ opacity: 0 }}
-                    //     transition={{ duration: 0.5 }}
-                    //     style={{ position: 'absolute'}}
-                    // />
-                    */}
-                
-                </AnimatePresence>
+            </AnimatePresence>
             </div>
-            <div className='d-flex justify-content-center' style={{ justifyContent: 'center', position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)' }}>
+            <div className="d-flex justify-content-center mt-3">
             {images.map((_, index) => (
                 <span
                 key={index}
@@ -104,13 +101,103 @@ const Slideshow = () => {
                     borderRadius: '50%',
                     margin: 5,
                     cursor: 'pointer',
-                    backgroundColor: currentImage === index ? 'black' : 'white',
+                    backgroundColor: currentImage === index ? 'black' : 'white'
                 }}
                 />
             ))}
             </div>
         </div>
     );
+    
+    // return (
+    //     <div className="d-flex justify-content-center position-relative align-items-center flex-column" style={{height: '39vh'}}>
+    //         <div className="d-flex" style={{height: '100%', width: '100%', justifyContent: 'center'}}>
+    //             <AnimatePresence>
+    //             {images.map((image, index) => (
+    //             <div key={index}>
+    //                 {/* Следующая картинка */}
+    //                 <motion.img
+    //                 src={images[(currentImage + 1) % images.length]}
+    //                 alt={`Image ${currentImage + 1}`}
+    //                 initial={{ opacity: 0 }}
+    //                 animate={{ opacity: 0.1 }}
+    //                 exit={{ opacity: 0 }}
+    //                 transition={{ duration: 0.5 }}
+    //                 style={{
+    //                     position: 'absolute',
+    //                     transform: 'translateX(80%) scale(0.7)',
+    //                     height: '270px',
+    //                     width: '270px'
+    //                 }}
+    //                 />
+
+    //                 {/* Текущая картинка */}
+    //                 <motion.img
+    //                 src={image}
+    //                 alt={`Image ${index}`}
+    //                 initial={{ opacity: 0 }}
+    //                 animate={{ opacity: currentImage === index ? 1 : 0 }}
+    //                 exit={{ opacity: 0 }}
+    //                 transition={{ duration: 0.5 }}
+    //                 style={{ position: 'absolute', 
+    //                     height: '300px',
+    //                     width: '300px'
+    //                 }}
+    //                 />
+
+    //                 {/* Предыдущая картинка */}
+    //                 <motion.img
+    //                 src={images[(currentImage - 1 + images.length) % images.length]}
+    //                 alt={`Image ${currentImage - 1}`}
+    //                 initial={{ opacity: 0 }}
+    //                 animate={{ opacity: 0.1 }}
+    //                 exit={{ opacity: 0 }}
+    //                 transition={{ duration: 0.5 }}
+    //                 style={{
+    //                     position: 'absolute',
+    //                     transform: 'translateX(-80%) scale(0.7)',
+    //                     height: '270px',
+    //                     width: '270px'
+    //                 }}
+    //                 />
+    //             </div>
+    //             ))}
+
+    //                     {/*
+    //                 // <motion.img
+    //                 //     key={index}
+    //                 //     src={image}
+    //                 //     className='rounded-5'
+    //                 //     alt={`Image ${index + 1}`}
+    //                 //     initial={{ opacity: 0 }}
+    //                 //     animate={{ opacity: currentImage === index ? 1 : 0 }}
+    //                 //     exit={{ opacity: 0 }}
+    //                 //     transition={{ duration: 0.5 }}
+    //                 //     style={{ position: 'absolute'}}
+    //                 // />
+    //                 */}
+                
+    //             </AnimatePresence>
+    //         </div>
+    //         <div className='d-flex justify-content-center' style={{ justifyContent: 'center', position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)' }}>
+    //         {images.map((_, index) => (
+    //             <span
+    //             key={index}
+    //             onClick={() => handleDotClick(index)}
+    //             style={{
+    //                 display: 'inline-block',
+    //                 width: 12,
+    //                 height: 12,
+    //                 borderRadius: '50%',
+    //                 margin: 5,
+    //                 cursor: 'pointer',
+    //                 backgroundColor: currentImage === index ? 'black' : 'white',
+    //             }}
+    //             />
+    //         ))}
+    //         </div>
+    //     </div>
+    // );
 };
 
 export default Slideshow;
