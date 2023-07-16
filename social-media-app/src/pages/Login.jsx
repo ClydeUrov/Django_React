@@ -15,7 +15,7 @@ function Login() {
                             <Link to="/register/">register</Link>.
                         </p>
                         <p>
-                            Little bit {" "}<Link to="/register/">about us</Link>.
+                            Little bit {" "}<Link to="/main/">about us</Link>.
                         </p>
                     </div>
                 </div>

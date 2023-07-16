@@ -50,8 +50,7 @@ function Post(props) {
 
     return (
         <>
-            <Card className="rounded-3 my-4"
-                data-testid="post-test">
+            <Card className="rounded-3 my-4" data-testid="post-test">
                 <Card.Body>
                     <Card.Title className="d-flex flex-row justify-content-between">
                         <div className="d-flex flex-row">

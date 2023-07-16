@@ -19,7 +19,7 @@ function SinglePost() {
         <Layout hasNavigationBack>
             {post.data ? (
                 <Row className="justify-content-center">
-                    <Col sm={8}>
+                    <Col sm={9}>
                         <Post post={post.data} refresh={post.mutate} isSinglePost />
                         <CreateComment postId={post.data.id} refresh={comments.mutate} />
                         {comments.data && comments.data.results.map((comment, index) => (

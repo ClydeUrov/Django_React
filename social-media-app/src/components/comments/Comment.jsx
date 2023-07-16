@@ -47,8 +47,8 @@ function Comment(props) {
 
 
     return (
-        <Card className="rounded-3 my-2"
-            data-testid="comment-test">
+        <Card className="rounded-3 my-2 mx-auto" data-testid="comment-test" 
+            style={{ backgroundColor: 'rgba(70, 90, 200, 0.2)', width: '94%' }}>
             <Card.Body>
                 <Card.Title className="d-flex flex-row justify-content-between">
                     <div className="d-flex flex-row">
@@ -95,7 +95,7 @@ function Comment(props) {
                     </div>
                 </div>
             </Card.Body>
-            <Card.Footer className="d-flex bg-white w-50 justify-content-between border-0">
+            <Card.Footer className="custom-footer justify-content-between border-0" style={{ backgroundColor: 'transparent' }}>
                 <div className="d-flex flex-row">
                     <LikeOutlined 
                         style={{
@@ -103,7 +103,7 @@ function Comment(props) {
                             height: "24px",
                             padding: "2px",
                             fontSize: "20px",
-                            color: comment.liked ? "#0D6EFD" : "#C4C4C4",
+                            color: comment.liked ? "#0D6EFD" : "#444444",
                         }}
                         onClick={() => {
                             if (comment.liked) {

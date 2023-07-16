@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import { motion, useInView } from "framer-motion";
-import '../mains/styles.css'
 import Slideshow from "../mains/Slideshow"
 
 function TextSection({ children }) {

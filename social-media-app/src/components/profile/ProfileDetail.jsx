@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Interest from "./Interest";
 
 function ProfileDetails(props) {
-    const { user } = props;
+    const { user, interests, refresh } = props;
     const navigate = useNavigate();
 
-    if (!user) {
+    if (!user || !interests) {
         return <div>Loading...</div>;
     }
 
@@ -37,7 +37,7 @@ function ProfileDetails(props) {
                 </div>
                 <div className="d-flex flex-column justify-content-right align-self-right mt-2 ms-auto">
                     <p className="fs-4">Interests: </p>
-                    <Interest userId={user.id} />
+                    <Interest userId={user.id} interests={interests} refresh={refresh}/>
                 </div>
             </div>
         </div>

@@ -1,73 +1,70 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axiosService from '../../helpers/axios';
 
+
 function Interest(props) {
-        const { userId } = props;
-        const [interests, setInterests] = useState([]);
-        const [newInterest, setNewInterest] = useState('');
-        
-        const handleChange = (event) => {
-            setNewInterest(event.target.value);
-        };
-    
-        useEffect(() => {
-            const fetchInterests = async () => {
-                try {
-                    const response = await axiosService.get(`/user/${userId}/interest/`);
-                    const fetchedInterests = response.data.results;
-                    
-                    setInterests(fetchedInterests);
-                } catch (error) {
-                    console.log(error);
-                }
-            };
-        
-            fetchInterests();
-        }, [userId]);
-    
-        const addInterest = async (event) => {
-            event.preventDefault();
-            const data = {
-                name: newInterest,
-                author: userId
-            }
-            console.log(data)
-            try {
-                const response = await axiosService.post(`/user/${userId}/interest/`, data);
-                setInterests([...interests, response.data]);
-                setNewInterest('');
-            } catch (error) {
-                console.log(error);
-            }
-        };
-    
-        const deleteInterest = async (interestId) => {
-            try {
-                await axiosService.delete(`/user/${userId}/interest/${interestId}/`);
-                setInterests(interests.filter((interest) => interest.id !== interestId ));
-            } catch (error) {
-                console.log(error);
-            }
-        };
-    
-        return (
-            <div>
-                {/* Render the list of interests */}
-                {interests.map((interest) => (
-                <div className="d-flex" key={interest.id}>
-                    <p>{interest.name}</p>
-                    <button className="fs-6 fw-lighter ms-2 border border-primary border-2 rounded-pill" style={{height: "28px"}}
-                    onClick={() => deleteInterest(interest.id)}>Del</button>
-                </div>
-                ))}
-    
-                {/* Form for adding new interests */}
-                <form onSubmit={addInterest}>
-                    <input type="text" value={newInterest} onChange={handleChange} />
-                    <button type="submit">Add</button>
-                </form>
-            </div>
-        );
+    const { userId, refresh, interests } = props;
+    const [validated, setValidated] = useState(false);
+    const [pTag, setPTag] = useState('');
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const createInterestForm = event.currentTarget;
+
+        if (createInterestForm.checkValidity() === false) {
+            event.stopPropagation();
+        }
+        setValidated(true);
+
+        const data = {
+            name: pTag,
+            author: userId
+        }
+
+        axiosService
+            .post(`/user/${userId}/interest/`, data)
+            .then(() => {
+                setPTag('');
+                refresh();
+            })
+            .catch((e) => {
+                console.log(e)
+            })
     }
+
+    const handleDelete = (interestId) => {
+        console.log("interestId", interestId)
+        axiosService
+            .delete(`/user/${userId}/interest/${interestId}/`)
+            .then(() => {
+                interests.results.splice(interestId, 1);
+                refresh();
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    useEffect(() => {
+        refresh();
+    }, [interests, refresh]);
+
+    return (
+        <div validated={validated.toString()}>
+            {interests.results.map((int) => (
+                <div className="d-flex" key={int.id}>
+                    <p>{int.name}</p>
+                    <button className="fs-6 fw-lighter ms-2 border border-primary border-2 rounded-pill" style={{height: "28px"}}
+                    onClick={() => handleDelete(int.id)}>Del</button>
+                </div>
+            ))}
     
-    export default Interest;
+            <form onSubmit={handleSubmit}>
+                <input type="text" value={pTag} onChange={(event) => setPTag(event.target.value)}/>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    );
+}
+
+export default Interest;

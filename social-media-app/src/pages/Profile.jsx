@@ -14,11 +14,13 @@ function Profile() {
 
     const posts = useSWR(`/post/?author__public_id=${profileId}`, fetcher, {refreshInterval:20000});
 
+    const interests = useSWR(`/user/${profileId}/interest/`, fetcher);
+
     return (
         <Layout hasNavigationBack>
             <Row className="justify-content-evenly">
                 <Col sm={9}>
-                    <ProfileDetails user={user.data} />
+                    <ProfileDetails user={user.data} refresh={interests.mutate} interests={interests.data}/>
                     <div>
                         <Row className="my-4">
                             {posts.data?.results.map((post, index) => (

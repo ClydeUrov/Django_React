@@ -6,24 +6,12 @@ import { Link } from "react-router-dom";
 function Navigationbar() {
     const user = getUser();
     const userActions = useUserActions();
-    // const setToaster = useContext(Context);
-
-    // const handleLogout = () => {
-    //     userActions.logout().catch((e) =>
-    //         setToaster({
-    //             type: "danger",
-    //             message: "Logout failed",
-    //             show: true,
-    //             title: e.data?.detail | "An error occured.",
-    //         })
-    //     );
-    // };
 
     return (
         <Navbar bg="primary" variant="dark">
             <Container>
                 <Navbar.Brand className="fw-bold" href="#home">
-                    Postagram
+                    Travel Social Network
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
