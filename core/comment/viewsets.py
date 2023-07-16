@@ -25,9 +25,8 @@ class CommentViewSet(AbstractViewSet):
 
         if post_pk is None:
             return Http404
-        queryset = Comment.objects.filter(post__public_id=post_pk)
 
-        return queryset
+        return Comment.objects.filter(post__public_id=post_pk)
 
     def get_object(self):
         obj = Comment.objects.get_object_by_public_id(self.kwargs['pk'])
@@ -40,21 +39,13 @@ class CommentViewSet(AbstractViewSet):
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @action(methods=['post'], detail=True)
-    def like(self, request, *args, **kwargs):
-        comment = self.get_object()
-        user = self.request.user
-        user.like_comment(comment)
-        serializer = self.serializer_class(comment)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
     def list(self, request, *args, **kwargs):
-        comment_objects = cache.get("comment_objects")
+        post_pk = self.kwargs['post_pk']
+        comment_objects = cache.get(f"comment_objects_{post_pk}")
 
         if comment_objects is None:
             comment_objects = self.filter_queryset(self.get_queryset())
-            cache.set("comment_objects", comment_objects)
+            cache.set("comment_objects", comment_objects, 60 * 60)
 
         page = self.paginate_queryset(comment_objects)
         if page is not None:
@@ -63,6 +54,15 @@ class CommentViewSet(AbstractViewSet):
 
         serializer = self.get_serializer(comment_objects, many=True)
         return Response(serializer.data)
+
+    @action(methods=['post'], detail=True)
+    def like(self, request, *args, **kwargs):
+        comment = self.get_object()
+        user = self.request.user
+        user.like_comment(comment)
+        serializer = self.serializer_class(comment)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=True)
     def remove_like(self, request, *args, **kwargs):

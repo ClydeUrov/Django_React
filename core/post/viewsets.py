@@ -7,7 +7,7 @@ from core.abstract import AbstractViewSet
 from core.auth.permissions import UserPermission
 from core.post.models import Post
 from core.post.serializers import PostSerializer
-# from django.core.cache import cache
+from django.core.cache import cache
 
 from core.user.models import User
 
@@ -28,14 +28,24 @@ class PostViewSet(AbstractViewSet):
 
     def list(self, request, *args, **kwargs):
         author_public_id = request.query_params.get("author__public_id")
-        # post_objects = cache.get("post_objects")
+
         if author_public_id:
-            author = get_object_or_404(User, public_id=author_public_id)
-            post_objects = Post.objects.filter(author=author)
-            # cache.set("post_objects", post_objects)
+            # Отдельный кеш для каждого пользователя
+            cache_key = f"post_objects_author_{author_public_id}"
+            post_objects = cache.get(cache_key)
+
+            if post_objects is None:
+                author = get_object_or_404(User, public_id=author_public_id)
+                post_objects = Post.objects.filter(author=author)
+                cache.set(cache_key, post_objects, 60 * 60)
         else:
-            post_objects = self.filter_queryset(self.get_queryset())
-            # cache.set("post_objects", post_objects)
+            # Общий кеш для всех постов
+            cache_key = "post_objects"
+            post_objects = cache.get(cache_key)
+
+            if post_objects is None:
+                post_objects = self.filter_queryset(self.get_queryset())
+                cache.set(cache_key, post_objects, 60 * 60)
 
         page = self.paginate_queryset(post_objects)
         if page is not None:
