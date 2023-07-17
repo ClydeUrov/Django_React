@@ -15,7 +15,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 90vh;
-    /* background-color:rgb(33,37,41);     */
+    background-color:rgb(212, 230, 248) !important;
 }
 
 section {

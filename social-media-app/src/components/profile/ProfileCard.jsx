@@ -1,6 +1,8 @@
 import React from "react";
 import { Card, Button, Image} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 function ProfileCard(props) {
     const navigate = useNavigate();
@@ -22,7 +24,12 @@ function ProfileCard(props) {
                 />
                 <Card.Body>
                     <Card.Title className="fs-6">{user.username}</Card.Title>
-                    <Button variant="primary" onClick={handleNavigateToProfile}>See Profile</Button>
+                    <div className="d-flex align-items-center">
+                        <Button variant="primary" onClick={handleNavigateToProfile}>See Profile</Button>
+                        <a href={`/message/${user.id}/`} className="ms-3 fs-3">
+                            <FontAwesomeIcon icon={faEnvelope}/>
+                        </a>
+                    </div>
                 </Card.Body>
             </div>
         </Card>
