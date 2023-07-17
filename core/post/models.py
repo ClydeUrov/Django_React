@@ -1,5 +1,5 @@
 from django.db import models
-from rest_framework.exceptions import ValidationError
+# from rest_framework.exceptions import ValidationError
 
 from core.abstract import AbstractModel, AbstractManager
 

@@ -1,6 +1,4 @@
-import uuid
 from django.db import models
-from core.abstract import AbstractManager, AbstractModel
 from core.user.models import User
 
 
