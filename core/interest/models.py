@@ -1,8 +1,10 @@
 from django.db import models
+
+from core.abstract import AbstractManager
 from core.user.models import User
 
 
-class InterestManager(models.Manager):
+class InterestManager(AbstractManager):
     pass
 
 

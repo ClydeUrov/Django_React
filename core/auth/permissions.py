@@ -27,7 +27,9 @@ class UserPermission(BasePermission):
         return False
 
     def has_permission(self, request, view):
-        if view.basename in ["post-comment", "post", "user", "auth-logout", "interest"]:
+        if view.basename in [
+            "post-comment", "post", "user", "auth-logout", "interest", "room", "room-chat"
+        ]:
             if request.user.is_anonymous:
                 return request.method in SAFE_METHODS
 

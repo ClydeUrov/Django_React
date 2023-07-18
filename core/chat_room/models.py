@@ -28,7 +28,7 @@ class Chat(models.Model):
     """Модель чата"""
     room = models.ForeignKey(Room, verbose_name="Chat room", on_delete=models.CASCADE)
     user = models.ForeignKey("core_user.User", verbose_name="User", on_delete=models.CASCADE)
-    text = models.TextField("Сообщение", max_length=500)
+    text = models.TextField("Message", max_length=500)
     created = models.DateTimeField("Дата отправки", auto_now_add=True)
     updated = models.BooleanField(default=False)
     read = models.BooleanField(default=False)

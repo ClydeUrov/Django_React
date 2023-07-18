@@ -1,8 +1,7 @@
 import React from "react";
 import { Navbar, Container, Image, NavDropdown, Nav } from "react-bootstrap";
 import { getUser, useUserActions } from "../hooks/user.actions";
-import { Link } from "react-router-dom";
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
@@ -18,7 +17,7 @@ function Navigationbar() {
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        <NavLink className="nav-link mx-4" to="/messages">
+                        <NavLink className="nav-link mx-4" to={`/room/`}>
                             <FontAwesomeIcon icon={faEnvelope} style={{ fontSize: '2.1rem' }} />
                         </NavLink>
                         

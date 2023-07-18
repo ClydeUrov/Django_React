@@ -9,8 +9,8 @@ from core.chat_room.serializers import RoomSerializer, ChatSerializer
 from core.user.models import User
 
 
-class RoomViesSet(AbstractViewSet):
-    http_method_names = ("get", "post")
+class RoomViewSet(AbstractViewSet):
+    http_method_names = ("get", "post", "delete")
     permission_classes = (IsAuthenticated, )
     serializer_class = RoomSerializer
 
@@ -47,7 +47,7 @@ class RoomViesSet(AbstractViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class ChatViesSet(AbstractViewSet):
+class ChatViewSet(AbstractViewSet):
     http_method_names = ("get", "post", "put", "delete")
     permission_classes = (IsAuthenticated, )
     serializer_class = ChatSerializer

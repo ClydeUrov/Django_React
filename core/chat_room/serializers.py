@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from core.chat_room.models import Room, Chat
 from core.user.models import User
@@ -7,13 +8,19 @@ from core.user.serializers import UserSerializer
 
 
 class RoomSerializer(AbstractSerializer):
-    creator = UserSerializer()
-    invited = UserSerializer(many=True)
+    creator = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
+    invited = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id', many=True)
+    
+    def validate_creator(self, value):
+        if self.context["request"].user != value:
+            raise ValidationError("You can`t create a room for another user.")
+
+        return value
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        author = User.objects.get_object_by_public_id(rep['author'])
-        rep['author'] = UserSerializer(author, context=self.context).data
+        creator = User.objects.get_object_by_public_id(rep['creator'])
+        rep['creator'] = UserSerializer(creator, context=self.context).data
         return rep
 
     class Meta:
@@ -22,7 +29,8 @@ class RoomSerializer(AbstractSerializer):
 
 
 class ChatSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    room = serializers.SlugRelatedField(queryset=Room.objects.all(), slug_field='public_id')
+    user = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)

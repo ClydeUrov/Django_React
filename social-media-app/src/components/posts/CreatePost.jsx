@@ -67,7 +67,7 @@ function CreatePost(props) {
                 <Form.Control 
                     className="py-2 rounded-pill border-primary text-primary"
                     data-testid="show-modal-form"
-                    text="text"
+                    type="text"
                     placeholder="Write a post"
                     onClick={handleShow}
                 />

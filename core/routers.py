@@ -5,6 +5,7 @@ from core.comment.viewsets import CommentViewSet
 from core.interest.viewsets import InterestViewSet
 from core.post.viewsets import PostViewSet
 from core.user.viewsets import UserViewSet
+from core.chat_room.viewsets import RoomViewSet, ChatViewSet
 
 router = routers.SimpleRouter()
 
@@ -17,7 +18,9 @@ router.register(r'logout', LogoutViewSet, basename='auth-logout')
 
 router.register(r'post', PostViewSet, basename='post')
 
-# router.register(r'interest', InterestViewSet, basename='interest')
+router.register(r'room', RoomViewSet, basename='room')
+chat_router = routers.NestedSimpleRouter(router, r'room', lookup='room')
+chat_router.register(r'chat', ChatViewSet, basename='room-chat')
 
 posts_router = routers.NestedSimpleRouter(router, r'post', lookup='post')
 posts_router.register(r'comment', CommentViewSet, basename='post-comment')
@@ -28,5 +31,6 @@ interests_router.register(r'interest', InterestViewSet, basename='interest')
 urlpatterns = [
     *router.urls,
     *posts_router.urls,
-    *interests_router.urls
+    *interests_router.urls,
+    *chat_router.urls
 ]

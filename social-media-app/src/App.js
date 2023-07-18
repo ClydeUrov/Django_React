@@ -8,6 +8,8 @@ import SinglePost from "./pages/SinglePost";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import Main from "./pages/Main";
+import ChatRoom from "./pages/ChatRoom";
+
 
 
 function App() {
@@ -26,7 +28,7 @@ function App() {
           <SinglePost />
         </ProtectedRoute>
       }/>
-      <Route path="profile/:profileId/" element={
+      <Route path="/profile/:profileId/" element={
         <ProtectedRoute>
           <Profile />
         </ProtectedRoute>
@@ -34,6 +36,11 @@ function App() {
       <Route path="/profile/:profileId/edit/" element={
         <ProtectedRoute>
           <EditProfile />
+        </ProtectedRoute>
+      }/>
+      <Route path="/room/:roomId/" element={
+        <ProtectedRoute>
+          <ChatRoom />
         </ProtectedRoute>
       }/>
     </Routes>
