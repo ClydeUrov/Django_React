@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from core.abstract import AbstractViewSet
+from core.auth.permissions import UserPermission
 from core.chat_room.models import Room, Chat
 from core.chat_room.serializers import RoomSerializer, ChatSerializer
 from core.user.models import User
@@ -11,11 +12,12 @@ from core.user.models import User
 
 class RoomViewSet(AbstractViewSet):
     http_method_names = ("get", "post", "delete")
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, UserPermission)
     serializer_class = RoomSerializer
 
     def get_queryset(self):
-        return Room.objects.all()
+        user = self.request.user
+        return Room.objects.filter(creator=user) | Room.objects.filter(invited=user)
 
     def get_object(self):
         obj = Room.objects.get_object_by_public_id(self.kwargs["pk"])
@@ -55,7 +57,7 @@ class ChatViewSet(AbstractViewSet):
     def get_queryset(self):
         room_pk = self.kwargs['room_pk']
         if room_pk is None:
-            return Chat.objects.null()
+            return Response({"error": "Room not found"}, status=status.HTTP_404_NOT_FOUND)
         return Chat.objects.filter(room__public_id=room_pk)
 
     def get_object(self):
@@ -65,7 +67,6 @@ class ChatViewSet(AbstractViewSet):
 
     def list(self, request, *args, **kwargs):
         room_id = request.query_params.get("room__public_id")
-
         if room_id:
             author = get_object_or_404(User, public_id=room_id)
             room = Room.objects.filter(author=author)
@@ -86,10 +87,10 @@ class ChatViewSet(AbstractViewSet):
     #     self.perform_destroy(instance)
     #     return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response(serializer.data)
+    # def update(self, request, *args, **kwargs):
+    #     partial = kwargs.pop('partial', False)
+    #     instance = self.get_object()
+    #     serializer = self.get_serializer(instance, data=request.data, partial=partial)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_update(serializer)
+    #     return Response(serializer.data)

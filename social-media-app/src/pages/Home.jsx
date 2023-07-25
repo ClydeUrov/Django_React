@@ -12,9 +12,11 @@ import ProfileCard from "../components/profile/ProfileCard";
 function Home() {
     const posts = useSWR("/post/", fetcher, {refreshInterval: 20000,});
 
-    const profiles = useSWR("/user/?limit=5", fetcher);
+    const profiles = useSWR("/user/?limit=6", fetcher);
 
     const user = getUser();
+
+    const filteredProfiles = profiles.data ? profiles.data.results.filter(profile => profile.id !== user.id) : [];
 
     if (!user) {
         return <div>Loading!</div>;
@@ -38,16 +40,16 @@ function Home() {
                             <CreatePost refresh={posts.mutate} />
                         </Col>
                     </Row>
-                    <Row className="my-4">
+                    <Row>
                         {posts.data?.results.map((post, index) => (
                             <Post key={index} post={post} refresh={posts.mutate}/>
                         ))}
                     </Row>
                 </Col>
-                <Col sm={3}  className="border bg-white rounded-3 py-4 my-4 h-50">
+                <Col sm={3}  className="border bg-white rounded-3 py-4 my-2 h-50">
                     <h4 className="font-weight-bold text-center">Suggested people</h4>
                     <div className="d-flex flex-column">
-                        {profiles.data && profiles.data.results.map((profile, index) => (
+                        {filteredProfiles.map((profile, index) => (
                             <ProfileCard key={index} user={profile} />
                         ))}
                     </div>

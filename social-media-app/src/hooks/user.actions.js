@@ -12,7 +12,9 @@ function useUserActions() {
         login,
         register,
         logout,
-        edit
+        edit,
+        createRoom,
+        getRooms
     };
 
     // Edit the user
@@ -57,7 +59,32 @@ function useUserActions() {
                 navigate("/login/");
             });
     }
+
+    // Create Room
+    function createRoom(data) {
+        return axiosService
+            .post(`/room/`, data)
+            .then((res) => {
+                navigate(`/room/${res.data.id}/`);
+            })
+    }
+
+    // Get Rooms
+    function getRooms() {
+        return axiosService.get('/room/')
+            .then((response) => {
+                // Проверяем, что ответ содержит данные и они представляют собой массив
+                if (response.data.results && Array.isArray(response.data.results)) {
+                    return response.data.results; // Возвращаем массив комнат из ответа
+                } else {
+                // Если данные не являются массивом, пробрасываем ошибку
+                    throw new Error('Invalid response format: Rooms data is not an array.');
+                }
+            })
+    }
 }
+
+
 
 // Get the user
 function getUser() {

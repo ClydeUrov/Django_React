@@ -1,16 +1,11 @@
 import React from "react";
 import axiosService from "../../helpers/axios";
-import { getUser } from "../../hooks/user.actions";
 import { format } from "timeago.js";
-import { Image, Card, Dropdown } from "react-bootstrap";
-import MoreToggleIcon from "../MoreToggleIcon";
+import { Image, Card } from "react-bootstrap";
 
 
 function Chat(props) {
     const { roomId, chat, refresh } = props;
-
-
-    const user = getUser();
 
     const handleDelete = () => {
         axiosService
@@ -31,15 +26,15 @@ function Chat(props) {
                 <Card.Title className="d-flex flex-row justify-content-between">
                     <div className="d-flex flex-row">
                         <Image
-                            src={chat.user.avatar}
+                            src={chat.author.avatar}
                             roundedCircle
                             width={48}
                             height={48}
                             className="me-2 border border-primary border-2"
                         />
                         <div className="d-flex flex-column justify-content-start align-self-center mt-2">
-                            <p className="fs-6 m-0">{chat.user.username}</p>
-                            {/* <p className="fs-6 fw-lighter"><small>{format(message.created)}</small></p> */}
+                            <p className="fs-6 m-0">{chat.author.username}</p>
+                            <p className="fs-6 fw-lighter m-0"><small>{format(chat.created)}</small></p>
                         </div>
                     </div>
                     

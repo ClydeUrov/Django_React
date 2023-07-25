@@ -2,8 +2,7 @@ import React from "react";
 import { Navbar, Container, Image, NavDropdown, Nav } from "react-bootstrap";
 import { getUser, useUserActions } from "../hooks/user.actions";
 import { Link, NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { MailOutlined } from "@ant-design/icons";
 
 function Navigationbar() {
     const user = getUser();
@@ -12,13 +11,13 @@ function Navigationbar() {
     return (
         <Navbar bg="primary" variant="dark">
             <Container>
-                <Navbar.Brand className="fw-bold" href="#home">
+                <Navbar.Brand className="fw-bold" href="/">
                     Travel Social Network
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
                         <NavLink className="nav-link mx-4" to={`/room/`}>
-                            <FontAwesomeIcon icon={faEnvelope} style={{ fontSize: '2.1rem' }} />
+                            <MailOutlined style={{ fontSize: '2.1rem' }} />
                         </NavLink>
                         
                         <NavDropdown title={

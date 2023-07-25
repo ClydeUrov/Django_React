@@ -1,16 +1,13 @@
-import React, { useContext } from 'react';
-import { format } from "timeago.js";
-import { getUser } from '../../hooks/user.actions';
+import React, { useContext, useState } from 'react';
 import axiosService from '../../helpers/axios';
 import { Context } from "../Layout";
-import MoreToggleIcon from "../MoreToggleIcon";
-import { Image, Card, Dropdown } from "react-bootstrap";
+import { Image, Card } from "react-bootstrap";
+import { CloseCircleOutlined } from '@ant-design/icons';
 
 function Room(props) {
     const { room, refresh } = props;
     const { setToaster } = useContext(Context);
-
-    const user = getUser();
+    const [show, setShow] = useState(false);
     
     const handleDelete = () => {
         axiosService
@@ -24,9 +21,9 @@ function Room(props) {
                 });
                 refresh();
             })
-            .catch(() => {
+            .catch((e) => {
                 setToaster({
-                    title: "Post Error",
+                    title: "Room Error",
                     message: "An error occurred.",
                     type: "danger",
                     show: true,
@@ -35,29 +32,49 @@ function Room(props) {
     };
 
     return (
-        <>
-            <Card className="rounded-3 my-2" data-testid="post-test">
-                <Card.Body>
-                    <Card.Title className="d-flex flex-row justify-content-between">
-                        <div className="d-flex flex-row">
-                            <Image
-                                src={user.avatar}
-                                roundedCircle
-                                width={48}
-                                height={48}
-                                className="me-2 border border-primary border-2"
-                            />
-                            <div className="d-flex flex-column justify-content-start align-self-center mt-2">
-                                <p className="fs-6 fw-lighter">
-                                    <small>{format(room.date)}</small>
-                                </p>
-                            </div>
+        <>  
+            <style>
+            {`
+                .icon-wrapper {
+                    display: flex;
+                    font-size: 24px;
+                    transition: all 0.3s;
+                    align-items: center;
+                }
+
+                .icon-wrapper:hover {
+                    font-size: 32px;
+                    color: red;
+                }
+            `}
+            </style>
+            {room.invited.map((user) => (
+            <Card 
+                className="rounded-3 my-2" 
+                data-testid="card-test"
+                key={user.id}
+                onMouseEnter={() => setShow(true)}
+                onMouseLeave={() => setShow(false)}
+            >
+                <Card.Body className="d-flex align-items-center justify-content-between">
+                    <div className="d-flex flex-row">
+                        <Image
+                            src={user.avatar}
+                            roundedCircle
+                            width={48}
+                            height={48}
+                            className="me-2 border border-primary border-2"
+                        />
+                        <Card.Text className="fw-bold fs-4">{user.username}</Card.Text>
+                    </div>
+                    {show && (
+                        <div className="icon-wrapper" onClick={handleDelete}>
+                            <CloseCircleOutlined />
                         </div>
-                    </Card.Title>
-                    <Card.Text className="fw-bold fs-4">{room.creator.username}</Card.Text>
-                    <Card.Text className="fw-bold fs-4">{room.invited.username}</Card.Text>
+                    )}
                 </Card.Body>
             </Card>
+            ))}
         </>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getUser } from '../../hooks/user.actions';
 import axiosService from '../../helpers/axios';
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 
 function SendMessage(props) {
@@ -17,7 +17,7 @@ function SendMessage(props) {
         
         const data = {
             room: roomId,
-            user: user.id,
+            author: user.id,
             text: message
         }
 
@@ -63,9 +63,9 @@ function SendMessage(props) {
 
     return (
         <>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className='d-flex mx-4 my-2'>
                 <Form.Control
-                    className="py-2 rounded-pill border-primary text-primary"
+                    className="me-3 rounded-pill border-primary text-primary"
                     type="text"
                     placeholder="Write a message"
                     value={message}
