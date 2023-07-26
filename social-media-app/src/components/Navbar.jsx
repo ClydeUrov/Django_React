@@ -3,10 +3,12 @@ import { Navbar, Container, Image, NavDropdown, Nav } from "react-bootstrap";
 import { getUser, useUserActions } from "../hooks/user.actions";
 import { Link, NavLink } from "react-router-dom";
 import { MailOutlined } from "@ant-design/icons";
+import { useParams } from "react-router-dom";
 
 function Navigationbar() {
     const user = getUser();
     const userActions = useUserActions();
+    const { roomId } = useParams();
 
     return (
         <Navbar bg="primary" variant="dark">
@@ -16,7 +18,7 @@ function Navigationbar() {
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        <NavLink className="nav-link mx-4" to={`/room/`}>
+                        <NavLink className="nav-link mx-4" to={`/room/${roomId}`}>
                             <MailOutlined style={{ fontSize: '2.1rem' }} />
                         </NavLink>
                         

@@ -6,15 +6,15 @@ class UserPermission(BasePermission):
         if request.user.is_anonymous:
             return request.method in SAFE_METHODS
 
-        if view.basename in ["room"]:
-            return bool(request.user and request.user.is_authenticated)
+        # if view.basename in ["room"]:
+        #     return bool(request.user and request.user.is_authenticated)
             # return request.user == obj.creator or request.user in obj.invited.all()
 
-        if view.basename in ["interest"]:
+        if view.basename in ["interest", "post", "room", "room-chat"]:
             return bool(request.user and request.user.is_authenticated)
 
-        if view.basename in ["post"]:
-            return bool(request.user and request.user.is_authenticated)
+        # if view.basename in ["post"]:
+        #     return bool(request.user and request.user.is_authenticated)
 
         if view.basename in ["post-comment"]:
             if request.method in ['DELETE']:

@@ -61,7 +61,7 @@ class ChatViewSet(AbstractViewSet):
         return Chat.objects.filter(room__public_id=room_pk)
 
     def get_object(self):
-        obj = Chat.objects.get_object_by_public_id(self.kwargs["pk"])
+        obj = Chat.objects.get(id=self.kwargs["pk"])
         self.check_object_permissions(self.request, obj)
         return obj
 

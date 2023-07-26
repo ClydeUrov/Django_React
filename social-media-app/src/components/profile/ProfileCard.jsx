@@ -39,14 +39,7 @@ function ProfileCard(props) {
             });
     };
     
-    const handleSubmit = (event) => {
-        // const createRoomForm = event.currentTarget;
-
-        // if (createRoomForm.checkValidity() === false) {
-        //     event.stopPropagation();
-        // }
-        // setValidated(true);
-
+    const handleSubmit = () => {
         const data = {
             creator: myId,
             invited: [user.id],
@@ -61,7 +54,7 @@ function ProfileCard(props) {
     }
 
     return (
-        <Card className="border-0 p-2" validated={validated}>
+        <Card className="border-0 p-2 m-4" validated={validated}>
             <div className="d-flex">
                 <Image
                     src={user.avatar}

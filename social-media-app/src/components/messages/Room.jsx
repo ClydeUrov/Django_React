@@ -5,9 +5,11 @@ import { Image, Card } from "react-bootstrap";
 import { CloseCircleOutlined } from '@ant-design/icons';
 
 function Room(props) {
-    const { room, refresh } = props;
+    const { room, refresh, currentRoom } = props;
     const { setToaster } = useContext(Context);
     const [show, setShow] = useState(false);
+    console.log(room.id, currentRoom)
+    const isSelected = room.id === currentRoom;
     
     const handleDelete = () => {
         axiosService
@@ -35,6 +37,14 @@ function Room(props) {
         <>  
             <style>
             {`
+                .room-item {
+                    width: 85%;
+                    margin: 0 auto; /* Для размещения по центру */
+                }
+                .selected {
+                    width: 95%;
+                    background-color: rgba(229, 198, 247, 0.6);
+                }
                 .icon-wrapper {
                     display: flex;
                     font-size: 24px;
@@ -50,7 +60,7 @@ function Room(props) {
             </style>
             {room.invited.map((user) => (
             <Card 
-                className="rounded-3 my-2" 
+                className={`rounded-3 my-2 w-80 ${isSelected ? 'selected' : 'room-item'}`} 
                 data-testid="card-test"
                 key={user.id}
                 onMouseEnter={() => setShow(true)}
