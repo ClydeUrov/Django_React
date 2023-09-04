@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "core.chat_room",
     "core.post",
     "core.comment",
-    "core.interest",
 ]
 
 MIDDLEWARE = [

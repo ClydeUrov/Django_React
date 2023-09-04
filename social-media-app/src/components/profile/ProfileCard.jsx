@@ -8,7 +8,6 @@ import { MessageOutlined } from "@ant-design/icons";
 function ProfileCard(props) {
     const myId = getUser().id;
     const navigate = useNavigate();
-    const [validated, setValidated] = useState(false);
 
     const { user } = props;
 
@@ -54,13 +53,12 @@ function ProfileCard(props) {
     }
 
     return (
-        <Card className="border-0 p-2 m-4" validated={validated}>
+        <Card className="border-0 p-2">
             <div className="d-flex">
                 <Image
                     src={user.avatar}
                     roundedCircle
-                    width={48}
-                    height={48}
+                    style={{ minWidth: 40, minHeight: 40, height: 48, width: 48 }}
                     className="my-3 border border-primary border-2"
                 />
                 <Card.Body>

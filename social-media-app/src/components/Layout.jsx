@@ -1,5 +1,6 @@
 import React, { createContext, useMemo, useState } from "react";
 import Navigationbar from "./Navbar";
+import Footer from "./Footer";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import Toaster from "./Toaster";
@@ -33,6 +34,7 @@ function Layout(props) {
                     onClick={() => navigate(-1)}
                 />)}
                 <div className="container my-2">{props.children}</div>
+                <Footer />
             </div>
             <Toaster
                 title={toaster.title}

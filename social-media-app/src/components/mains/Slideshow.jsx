@@ -6,7 +6,6 @@ const images = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ1q_4E-pcAA_zQXVfMTfytvS4aAgMhclkjg&usqp=CAU',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX2B4g22q1AWV4d3jEMCFOyhoAK4e_oY20ug&usqp=CAU',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ179zTPwjyznj8v9dQopf9qx_7KNZqGalgXQ&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSEMFR7a7f8tG8hFMkVZgcJvztD4hrHPxVJA&usqp=CAU',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0FMsZ18U5v230dv6PCogtqiw_0KkdOiNKtA&usqp=CAU',
 
 ];

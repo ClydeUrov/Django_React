@@ -53,6 +53,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     comments_liked = models.ManyToManyField("core_comment.Comment", related_name="commented_by")
     bio = models.TextField(blank=True, null=True)
     avatar = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
+    # iterests = models.CharField()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

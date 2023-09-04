@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -56,8 +57,9 @@ class ChatViewSet(AbstractViewSet):
 
     def get_queryset(self):
         room_pk = self.kwargs['room_pk']
-        if room_pk is None:
-            return Response({"error": "Room not found"}, status=status.HTTP_404_NOT_FOUND)
+        if room_pk is None or room_pk == 'undefined':
+            raise NotFound("Room not found")
+            # return Response({"error": "Room not found"}, status=status.HTTP_404_NOT_FOUND)
         return Chat.objects.filter(room__public_id=room_pk)
 
     def get_object(self):

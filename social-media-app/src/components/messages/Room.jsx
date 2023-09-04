@@ -8,7 +8,6 @@ function Room(props) {
     const { room, refresh, currentRoom } = props;
     const { setToaster } = useContext(Context);
     const [show, setShow] = useState(false);
-    console.log(room.id, currentRoom)
     const isSelected = room.id === currentRoom;
     
     const handleDelete = () => {

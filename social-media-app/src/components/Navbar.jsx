@@ -11,7 +11,7 @@ function Navigationbar() {
     const { roomId } = useParams();
 
     return (
-        <Navbar bg="primary" variant="dark">
+        <Navbar variant="dark">
             <Container>
                 <Navbar.Brand className="fw-bold" href="/">
                     Travel Social Network
