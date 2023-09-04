@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from core.abstract import AbstractViewSet
 from core.auth.permissions import UserPermission
-from core.user.models import User
+from core.user.models import User, Interest
 from core.user.serializers import UserSerializer
 
 
@@ -23,5 +23,10 @@ class UserViewSet(AbstractViewSet):
         obj = User.objects.get_object_by_public_id(self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)
 
+        interests_data = self.request.data.get("interests", [])
+
+        interests = [Interest.objects.get_or_create(name=interest_name)[0] for interest_name in interests_data]
+
+        obj.interests.set(interests)
         return obj
 

@@ -15,12 +15,11 @@ router.register(r'login', LoginViewSet, basename='auth-login')
 router.register(r'refresh', RefreshViewSet, basename='auth-refresh')
 router.register(r'logout', LogoutViewSet, basename='auth-logout')
 
-router.register(r'post', PostViewSet, basename='post')
-
 router.register(r'room', RoomViewSet, basename='room')
 chat_router = routers.NestedSimpleRouter(router, r'room', lookup='room')
 chat_router.register(r'chat', ChatViewSet, basename='room-chat')
 
+router.register(r'post', PostViewSet, basename='post')
 posts_router = routers.NestedSimpleRouter(router, r'post', lookup='post')
 posts_router.register(r'comment', CommentViewSet, basename='post-comment')
 

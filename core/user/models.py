@@ -42,6 +42,13 @@ class UserManager(BaseUserManager, AbstractManager):
         return user
 
 
+class Interest(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     username = models.CharField(db_index=True, max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
@@ -53,7 +60,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     comments_liked = models.ManyToManyField("core_comment.Comment", related_name="commented_by")
     bio = models.TextField(blank=True, null=True)
     avatar = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
-    # iterests = models.CharField()
+    interests = models.ManyToManyField(Interest)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -99,11 +106,4 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     def has_liked_comment(self, comment):
         """Return True if the user has liked a `comment`; else False"""
         return self.comments_liked.filter(pk=comment.pk).exists()
-
-
-
-
-
-
-
 
