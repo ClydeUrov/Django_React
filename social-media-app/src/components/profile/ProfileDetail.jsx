@@ -34,6 +34,14 @@ function ProfileDetails(props) {
                         Edit
                     </Button>
                 </div>
+                <div className="p-4 ms-auto">
+                    <h4>Your interests</h4>
+                    <ul>
+                        {user.interests.map((interest, index) => (
+                            <li key={index}>{interest.name}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </div>
     );

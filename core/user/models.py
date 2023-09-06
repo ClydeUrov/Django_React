@@ -43,7 +43,7 @@ class UserManager(BaseUserManager, AbstractManager):
 
 
 class Interest(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=150, unique=True)
 
     def __str__(self):
         return self.name
@@ -82,6 +82,20 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_superuser
+
+    def add_interest(self, interest):
+        """
+        Добавить интерес пользователю.
+        :param interest: объект интереса, который нужно добавить
+        """
+        self.interests.add(interest)
+
+    def remove_interest(self, interest):
+        """
+        Удалить интерес у пользователя.
+        :param interest: объект интереса, который нужно удалить
+        """
+        self.interests.remove(interest)
 
     def like(self, post):
         """Like `post` if it hasn't been done yet"""

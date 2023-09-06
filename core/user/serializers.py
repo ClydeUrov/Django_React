@@ -6,20 +6,21 @@ from core.abstract import AbstractSerializer
 from core.user.models import User, Interest
 
 
+class InterestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Interest
+        fields = ['id', 'name']
+
+
 class UserSerializer(AbstractSerializer):
     posts_count = serializers.SerializerMethodField()
-    interests = serializers.SerializerMethodField()
+    interests = InterestSerializer(many=True)
 
     def get_posts_count(self, instance):
         return instance.post_set.all().count()
 
-    def get_interests(self, instance):
-        return [interest.name for interest in instance.interests.all()]
-
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        interests = self.get_interests(instance)
-        representation['interests'] = interests  # Добавляем интересы в представление
         if not representation['avatar']:
             representation['avatar'] = settings.DEFAULT_AVATAR_URL
         if settings.DEBUG:
@@ -29,5 +30,6 @@ class UserSerializer(AbstractSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name', 'bio', 'avatar', 'interests', 'email', 'is_active', 'posts_count', 'created', 'updated']
+        fields = ['id', 'username', 'first_name', 'last_name', 'bio', 'avatar', 'interests',
+                  'email', 'is_active', 'posts_count', 'created', 'updated']
         read_only_fields = ['is_active']

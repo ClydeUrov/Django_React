@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Button, Image} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getUser, useUserActions } from "../../hooks/user.actions";

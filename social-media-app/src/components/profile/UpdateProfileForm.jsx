@@ -3,6 +3,7 @@ import { Form, Button, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserActions } from "../../hooks/user.actions";
 import { Context } from "../Layout";
+import Interest from "./Interest";
 
 function UpdateProfileForm(props) {
     const { profile } = props;
@@ -123,7 +124,7 @@ function UpdateProfileForm(props) {
                     rows={3}
                 />
             </Form.Group>
-
+            <Interest allInterests={profile.interests} user_id={profile.id} />
             <div className="text-content text-danger">
                 {error && <p>{error}</p>}
             </div>
