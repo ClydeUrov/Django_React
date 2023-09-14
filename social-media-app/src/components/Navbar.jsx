@@ -14,7 +14,7 @@ function Navigationbar() {
         <Navbar variant="dark">
             <Container>
                 <Navbar.Brand className="fw-bold" href="/">
-                    Travel Social Network
+                    Weekend World
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>

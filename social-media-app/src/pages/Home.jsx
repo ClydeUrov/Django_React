@@ -46,7 +46,7 @@ function Home() {
                         ))}
                     </Row>
                 </Col>
-                <Col sm={3}  className="border bg-white rounded-3 py-4 my-2 h-50">
+                <Col sm={3}  className="border bg-white rounded-3 pt-3 h-50">
                     <h4 className="font-weight-bold text-center">Suggested people</h4>
                     <div className="d-flex flex-column">
                         {filteredProfiles.map((profile, index) => (

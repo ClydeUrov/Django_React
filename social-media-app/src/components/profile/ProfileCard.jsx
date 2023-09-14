@@ -53,12 +53,12 @@ function ProfileCard(props) {
     }
 
     return (
-        <Card className="border-0 p-2">
+        <Card className="border-bottom border-0">
             <div className="d-flex">
                 <Image
                     src={user.avatar}
                     roundedCircle
-                    style={{ minWidth: 40, minHeight: 40, height: 48, width: 48 }}
+                    style={{ minWidth: 50, maxHeight: 50,}}
                     className="my-3 border border-primary border-2"
                 />
                 <Card.Body>

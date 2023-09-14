@@ -15,8 +15,8 @@ import ChatRoom from "./pages/ChatRoom";
 function App() {
   return (
     <Routes>
-      <Route path="/main/" element={<Main />} />
-      <Route path="/" element={
+      <Route path="/" element={<Main />} />
+      <Route path="/main/" element={
           <ProtectedRoute>
             <Home />
           </ProtectedRoute>
