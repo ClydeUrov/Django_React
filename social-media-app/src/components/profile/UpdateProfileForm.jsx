@@ -55,7 +55,8 @@ function UpdateProfileForm(props) {
             })
             .catch((err) => {
                 if (err.message) {
-                    setError(err.request.response);
+                    const errorResponse = JSON.parse(err.request.response);
+                    setError(errorResponse.detail);
                 }
         });
     };

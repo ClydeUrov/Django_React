@@ -57,8 +57,8 @@ function RegistrationForm() {
                     errorMessage += "Password: " + errorResponse.password + "\n";
                 }
 
-                console.log(errorMessage)
                 setError(errorMessage);
+
             }
         });
 

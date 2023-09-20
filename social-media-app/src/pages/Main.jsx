@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/mains/Header";
 // import Navigation from "../components/mains/Navigation";
 import Content from "../components/mains/Content";
-import Footer from "../components/mains/MainFooter";
+import MainFooter from "../components/mains/MainFooter";
 
 
 function Main(){
@@ -11,7 +11,7 @@ function Main(){
             <Header />
             {/* <Navigation />*/}
             <Content />
-            <Footer />
+            <MainFooter />
         </div>
     )
 }

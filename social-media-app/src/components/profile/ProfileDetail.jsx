@@ -1,9 +1,11 @@
 import React from "react";
 import { Button, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../../hooks/user.actions";
 
 function ProfileDetails(props) {
     const { user } = props;
+    const myId = getUser().id
     const navigate = useNavigate();
 
     if (!user) {
@@ -25,14 +27,16 @@ function ProfileDetails(props) {
                     <p className="fs-4 m-0">{user.first_name} {user.last_name}</p>
                     <p className="fs-5">{user.bio ? user.bio : "(No bio.)"}</p>
                     <p className="fs-6"><small>{user.posts_count} posts</small></p>
-                    <Button
-                        variant="primary"
-                        size="sm"
-                        className="w-150"
-                        onClick={() => navigate(`/profile/${user.id}/edit/`)}
-                    >
-                        Edit
-                    </Button>
+                    {user.id === myId ? (
+                        <Button
+                            variant="primary"
+                            size="sm"
+                            className="w-150"
+                            onClick={() => navigate(`/profile/${user.id}/edit/`)}
+                        >
+                            Edit
+                        </Button>
+                    ) : null}
                 </div>
                 <div className="p-4 ms-auto">
                     <h4>Your interests</h4>
