@@ -36,31 +36,31 @@ function RegistrationForm() {
             bio: form.bio,
         };
 
-        userActions.register(data).catch((err) => {
-            if (err.message) {
-                const errorResponse = JSON.parse(err.request.response);
-                let errorMessage = "";
+        userActions
+            .register(data)
+            .catch((err) => {
+                if (err.message) {
+                    const errorResponse = JSON.parse(err.request.response);
+                    let errorMessage = "";
 
-                if (errorResponse.email) {
-                    errorMessage += "Email: " + errorResponse.email + "\n";
+                    if (errorResponse.email) {
+                        errorMessage += "Email: " + errorResponse.email + "\n";
+                    }
+                    if (errorResponse.username) {
+                        errorMessage += "Username: " + errorResponse.username + "\n";
+                    }
+                    if (errorResponse.first_name) {
+                        errorMessage += "First Name: " + errorResponse.first_name + "\n";
+                    }
+                    if (errorResponse.last_name) {
+                        errorMessage += "Last Name: " + errorResponse.last_name + "\n";
+                    }
+                    if (errorResponse.password) {
+                        errorMessage += "Password: " + errorResponse.password + "\n";
+                    }
+                    setError(errorMessage);
                 }
-                if (errorResponse.username) {
-                    errorMessage += "Username: " + errorResponse.username + "\n";
-                }
-                if (errorResponse.first_name) {
-                    errorMessage += "First Name: " + errorResponse.first_name + "\n";
-                }
-                if (errorResponse.last_name) {
-                    errorMessage += "Last Name: " + errorResponse.last_name + "\n";
-                }
-                if (errorResponse.password) {
-                    errorMessage += "Password: " + errorResponse.password + "\n";
-                }
-
-                setError(errorMessage);
-
-            }
-        });
+            });
 
     };
 

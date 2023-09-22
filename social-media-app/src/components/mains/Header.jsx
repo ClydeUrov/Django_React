@@ -11,7 +11,7 @@ export default function App() {
                     <div className='text-white'>
                         <h1 className='mb-3'>Weekend World</h1>
                         <h4 className='mb-3 fst-italic fw-lighter'>Join us & WEekend every day!</h4>
-                        <button className="glow-on-hover" to="/login/">Join Us</button>
+                        <Link className="glow-on-hover mx-auto text-white" to="/login/">Join Us</Link>
                     </div>
                 </div>
                 </div>

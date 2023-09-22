@@ -9,7 +9,7 @@ function TextSection({ children }) {
     const isInView = useInView(ref, { once: true });
 
     const textStyle = {
-        transform: isInView ? "none" : "translateX(300px)",
+        transform: isInView ? "none" : "translateY(300px)",
         opacity: isInView ? 1 : 0,
         transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
     }
@@ -47,7 +47,7 @@ function ItemSection({ children }) {
     const isInView = useInView(ref, { once: true });
 
     const imageStyle = {
-        transform: isInView ? "none" : "translate(300px, 300px)",
+        transform: isInView ? "none" : "translateY(300px)",
         opacity: isInView ? 1 : 0,
         transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
     }
@@ -84,7 +84,7 @@ const Content = () => {
                     explore the world together!
                     </span>
                 </div>
-                <motion.div  class="divider" whileHover={{ scale: 1.5 }} />
+                <motion.div  className="divider" whileHover={{ scale: 1.5 }} />
                 <div className='d-flex flex-row align-items-center' >
                     <TextSection>
                         <h3>
@@ -169,7 +169,7 @@ const Content = () => {
                         </p>
                     </TextSection>
                 </div>
-                <motion.div  class="divider" whileHover={{ scale: 1.5 }} />
+                <motion.div  className="divider" whileHover={{ scale: 1.5 }} />
                 <div className='sign-up-field mb-4 d-flex flex-row'>
                     <ItemSection>
                         <h3>Choose what you would like to visit</h3>
@@ -197,7 +197,7 @@ const Content = () => {
                     <h3 className="mb-4">events on every day</h3>
                     <Slideshow />
                 </div>
-                <div className="sign-up-field col-md-6 my-3 item-align-center justify-content-center m-auto">
+                <div className="sign-up-field col-md-6 mt-5 item-align-center justify-content-center m-auto">
                     <h3>Sign up and enjoy</h3>
                     <button onClick={showLoginForm}>Login</button>
                     <button onClick={showRegistrationForm}>Registration</button>

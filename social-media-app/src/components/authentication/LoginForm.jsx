@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
 import { useUserActions } from "../../hooks/user.actions";
 
 function LoginForm() {
-    // const navigate = useNavigate();
     const [validated, setValidated] = useState(false);
     const [form, setForm] = useState({
         email: "",
@@ -15,7 +12,7 @@ function LoginForm() {
     const userActions = useUserActions();
     
     const handleSubmit = (event) => {
-        event.preventDefault(); // перезагружаем страницу
+        event.preventDefault();
         const loginForm = event.currentTarget;
 
         if (loginForm.checkValidity() === false) {

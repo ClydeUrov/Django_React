@@ -4,7 +4,7 @@ services:
   redis:
     image: redis:alpine
   nginx:
-    container_name: postagram_web
+    container_name: weekend_web
     restart: on-failure
     image: nginx:latest
     volumes:
@@ -16,7 +16,7 @@ services:
       - api
 
   api:
-    container_name: postagram_api
+    container_name: weekend_api
     build: .
     restart: always
     env_file: .env
@@ -32,7 +32,7 @@ services:
       - redis
 
   db:
-    container_name: postagram_db
+    container_name: weekend_db
     image: postgres:14.3-alpine
     env_file: .env
     volumes:

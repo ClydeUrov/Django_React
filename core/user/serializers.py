@@ -23,8 +23,8 @@ class UserSerializer(AbstractSerializer):
         representation = super().to_representation(instance)
         if not representation['avatar']:
             representation['avatar'] = settings.DEFAULT_AVATAR_URL
-        if settings.DEBUG:
-            request = self.context.get('request')
+        request = self.context.get('request')
+        if request and settings.DEBUG:
             representation['avatar'] = request.build_absolute_uri(representation['avatar'])
         return representation
 
