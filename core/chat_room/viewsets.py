@@ -6,8 +6,8 @@ from rest_framework.response import Response
 
 from core.abstract import AbstractViewSet
 from core.auth.permissions import UserPermission
-from core.chat_room.models import Room, Chat
-from core.chat_room.serializers import RoomSerializer, ChatSerializer
+from core.chat_room.models import Room, Message
+from core.chat_room.serializers import RoomSerializer, MessageSerializer
 from core.user.models import User
 
 
@@ -50,20 +50,20 @@ class RoomViewSet(AbstractViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class ChatViewSet(AbstractViewSet):
+class MessageViewSet(AbstractViewSet):
     http_method_names = ("get", "post", "put", "delete")
     permission_classes = (IsAuthenticated, )
-    serializer_class = ChatSerializer
+    serializer_class = MessageSerializer
 
     def get_queryset(self):
         room_pk = self.kwargs['room_pk']
         if room_pk is None or room_pk == 'undefined':
             raise NotFound("Room not found")
             # return Response({"error": "Room not found"}, status=status.HTTP_404_NOT_FOUND)
-        return Chat.objects.filter(room__public_id=room_pk)
+        return Message.objects.filter(room__public_id=room_pk)
 
     def get_object(self):
-        obj = Chat.objects.get(id=self.kwargs["pk"])
+        obj = Message.objects.get(id=self.kwargs["pk"])
         self.check_object_permissions(self.request, obj)
         return obj
 
@@ -76,7 +76,6 @@ class ChatViewSet(AbstractViewSet):
             room = self.filter_queryset(self.get_queryset())
 
         page = self.paginate_queryset(room)
-
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
