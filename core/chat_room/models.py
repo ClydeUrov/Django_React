@@ -9,8 +9,18 @@ class RoomManager(AbstractManager):
 
 class Room(AbstractModel):
     """Модель комнаты чата"""
-    creator = models.ForeignKey("core_user.User", verbose_name="Creator", on_delete=models.CASCADE)
-    invited = models.ManyToManyField("core_user.User", verbose_name="Participant", related_name="invited_user")
+    creator = models.ForeignKey(
+        "core_user.User",
+        related_name="created_rooms",
+        verbose_name="Creator",
+        on_delete=models.CASCADE
+    )
+    invited = models.ForeignKey(
+        "core_user.User",
+        related_name="invited_rooms",
+        verbose_name="Invited",
+        on_delete=models.CASCADE,
+    )
 
     objects = RoomManager()
 
@@ -19,11 +29,11 @@ class Room(AbstractModel):
         verbose_name_plural = "Chat rooms"
 
 
-class ChatManager(AbstractManager):
+class MessageManager(AbstractManager):
     pass
 
 
-class Chat(models.Model):
+class Message(models.Model):
     """Модель чата"""
     room = models.ForeignKey(Room, verbose_name="Chat room", on_delete=models.CASCADE)
     author = models.ForeignKey("core_user.User", verbose_name="User", on_delete=models.CASCADE)
@@ -32,7 +42,7 @@ class Chat(models.Model):
     updated = models.BooleanField(default=False)
     read = models.BooleanField(default=False)
 
-    objects = ChatManager()
+    objects = MessageManager()
 
     class Meta:
         verbose_name = "Chat message"
