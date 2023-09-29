@@ -8,8 +8,7 @@ import SinglePost from "./pages/SinglePost";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import Main from "./pages/Main";
-import ChatRoom from "./pages/ChatRoom";
-
+import Messenger from "./pages/Messenger";
 
 
 function App() {
@@ -38,11 +37,11 @@ function App() {
           <EditProfile />
         </ProtectedRoute>
       }/>
-      <Route path="/room/:roomId/" element={
-        <ProtectedRoute>
-          <ChatRoom />
-        </ProtectedRoute>
-      }/>
+        <Route path="/room/:roomId/" element={
+          <ProtectedRoute>
+              <Messenger />
+          </ProtectedRoute>
+        }/>
     </Routes>
   );
 }

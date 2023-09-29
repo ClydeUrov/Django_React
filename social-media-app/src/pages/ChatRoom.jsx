@@ -79,6 +79,7 @@ function ChatRoom() {
                     )}
                 </Col>
             </Row>
+            
         </Layout>
     )
 }

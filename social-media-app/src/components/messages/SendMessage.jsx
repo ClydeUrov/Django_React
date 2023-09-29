@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { getUser } from '../../hooks/user.actions';
-import axiosService from '../../helpers/axios';
 import { Button, Form } from "react-bootstrap";
+import { useDispatch } from 'react-redux';
+import { addMessage } from './messageSlice';
 
 
 function SendMessage(props) {
-    const { roomId, refresh } = props;
+    const { roomId } = props;
     const [message, setMessage] = useState('');
-
+    const dispatch = useDispatch();
     const user = getUser();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if (!message.trim()) {
+            return; // Не отправляем пустое сообщение
+        }
         
         const data = {
             room: roomId,
@@ -19,16 +24,9 @@ function SendMessage(props) {
             text: message
         }
 
-        axiosService
-            .post(`/room/${roomId}/chat/`, data)
-            .then(() => {
-                refresh();
-                setMessage('');
-            })
-            .catch((e) => {
-                console.log("Message not sent.")
-            })
-        }
+        dispatch(addMessage({ roomId, data }));
+        setMessage('');
+    };
 
     return (
         <>

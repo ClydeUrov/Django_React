@@ -34,7 +34,7 @@ function Layout(props) {
                     onClick={() => navigate(-1)}
                 />)}
                 <div className="container my-2">{props.children}</div>
-                <Footer />
+                {/* <Footer /> */}
             </div>
             <Toaster
                 title={toaster.title}
