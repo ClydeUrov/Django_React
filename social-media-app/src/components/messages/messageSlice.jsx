@@ -7,17 +7,8 @@ export const fetchMessages = createAsyncThunk('room/fetchMessages', async (roomI
 });
 
 export const addMessage = createAsyncThunk('messages/addMessage', async ({ roomId, data }) => {
-    try {
-        console.log(3, roomId, data);
-        console.log(3.5)
-        const newMessage = await axiosService.post(`/room/${roomId}/chat/`, data);
-        console.log(4, newMessage);
-        return newMessage.data;
-    } catch (error) {
-        // Обработка ошибки
-        console.error('Ошибка при отправке сообщения:', error.message);
-        throw error; // Перебросить ошибку для дальнейшей обработки
-    }
+    const newMessage = await axiosService.post(`/room/${roomId}/chat/`, data);
+    return newMessage.data;
 });
 
 export const deleteMessage = createAsyncThunk('room/deleteMessage', async (roomId, messageId) => {
@@ -40,9 +31,6 @@ export const messageSlice = createSlice({
             })
             .addCase(addMessage.fulfilled, (state, action) => {
                 state.messages.push(action.payload);
-            })
-            .addCase(addMessage.rejected, (state, action) => {
-                console.error('Ошибка при добавлении сообщения:', action.error.message);
             })
             .addCase(deleteMessage.fulfilled, (state, action) => {
                 state.messages = state.messages.filter(message => message.id !== action.payload);

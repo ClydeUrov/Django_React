@@ -1,7 +1,5 @@
 import React from 'react';
-import useSWR from 'swr';
 import { useParams } from 'react-router-dom';
-import { fetcher } from '../helpers/axios';
 import { Row, Col } from "react-bootstrap";
 import Layout from "../components/Layout";
 import RoomList from '../components/messages/Room1';
@@ -10,6 +8,8 @@ import SendMessage from '../components/messages/SendMessage';
 
 function Messenger() {
     const { roomId } = useParams();
+    // const rooms = useSWR(`/room/`, fetcher);
+    // const chats = useSWR(`/room/${roomId}/chat/`, fetcher);
 
     return (
         <Layout hasNavigationBack>
@@ -20,9 +20,9 @@ function Messenger() {
                         <RoomList />
                     </div>
                 </Col>
-                <Col sm={8} className='d-flex flex-column' style={{ maxHeight: '650px' }}>
+                <Col sm={8} className='d-flex flex-column' style={{ maxHeight: '600px' }}>
                     <h1>Message List</h1>
-                    <div className='border border-2 rounded-2 border-dark bg-light overflow-auto'>
+                    <div className='border border-2 rounded-2 border-dark bg-light overflow-auto '>
                         <MessageList roomId={roomId}/>
                         
                     </div>

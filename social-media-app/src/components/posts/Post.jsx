@@ -79,7 +79,7 @@ function Post(props) {
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-                            </div>
+                            </div> 
                         )}
                     </Card.Title>
                     <Card.Text className="fw-bold fs-4">{post.title}</Card.Text>

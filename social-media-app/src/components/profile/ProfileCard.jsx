@@ -1,11 +1,15 @@
 import React from "react";
 import { Card, Button, Image} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getUser, useUserActions } from "../../hooks/user.actions";
+import { getUser } from "../../hooks/user.actions";
 import { MessageOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { addRoom } from "../messages/roomSlice";
+import axiosService from "../../helpers/axios";
 // mdb-react-ui-kit react-icons/fa
 
 function ProfileCard(props) {
+    const dispatch = useDispatch();
     const myId = getUser().id;
     const navigate = useNavigate();
 
@@ -15,42 +19,17 @@ function ProfileCard(props) {
         navigate(`/profile/${user.id}/`)
     };
 
-    const userActions = useUserActions();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    const checkRoomExistence = () => {
-        userActions
-            .getRooms()
-            .then((rooms) => {
-                const existingRoom = rooms.find(
-                    (room) => room.creator.id === myId && room.invited[0].id === user.id
-                );
-        
-                if (existingRoom) {
-                // Если комната существует, перенаправляем на существующую комнату
-                    navigate(`/room/${existingRoom.id}`);
-                } else {
-                // Если комната не существует, создаем новую комнату
-                    handleSubmit();
-                }
-            })
-            .catch((error) => {
-                console.error('Error checking room existence:', error);
-            });
-    };
+        const response = await axiosService.get(`/room/?creator=${myId}&invited=${user.id}`);
     
-    const handleSubmit = () => {
-        const data = {
-            creator: myId,
-            invited: [user.id],
-        };
-
-        userActions.createRoom(data).catch((err) => {
-            if (err.message) {
-                const errorResponse = JSON.parse(err.request.response);
-                console.log(errorResponse.detail);
-            }
-        });
-    }
+        if (Object.keys(response.data).length === 0) {
+            dispatch(addRoom({ creator: myId, invited: user.id }))
+        } else {
+            navigate(`/room/${response.data.id}`);
+        }
+    };
 
     return (
         <Card className="border-bottom border-0">
@@ -67,7 +46,7 @@ function ProfileCard(props) {
                         <Button variant="primary" onClick={handleNavigateToProfile}>See Profile</Button>
                         <Button
                             variant="link"
-                            onClick={checkRoomExistence} // Handle form submission
+                            onClick={handleSubmit} // Handle form submission
                             className="d-flex fs-3"
                         >
                             <MessageOutlined />

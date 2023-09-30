@@ -26,11 +26,20 @@ class RoomViewSet(AbstractViewSet):
         return obj
 
     def list(self, request, *args, **kwargs):
-        creator_id = request.query_params.get("creator__public_id")
+        creator_id = request.query_params.get("creator")
+        invited_id = request.query_params.get("invited")
+        print(creator_id, invited_id)
 
-        if creator_id:
-            author = get_object_or_404(User, public_id=creator_id)
-            room = Room.objects.filter(author=author)
+        if creator_id and invited_id:
+            try:
+                room = Room.objects.get(creator__public_id=creator_id, invited__public_id=invited_id) \
+                       or \
+                       Room.objects.get(creator__public_id=invited_id, invited__public_id=creator_id)
+                serializer = self.get_serializer(room)
+                return Response(serializer.data)
+            except Room.DoesNotExist as ex:
+                print("Room does not exist", ex)
+                return Response({})
         else:
             room = self.filter_queryset(self.get_queryset())
 
@@ -59,7 +68,6 @@ class MessageViewSet(AbstractViewSet):
         room_pk = self.kwargs['room_pk']
         if room_pk is None or room_pk == 'undefined':
             raise NotFound("Room not found")
-            # return Response({"error": "Room not found"}, status=status.HTTP_404_NOT_FOUND)
         return Message.objects.filter(room__public_id=room_pk)
 
     def get_object(self):
