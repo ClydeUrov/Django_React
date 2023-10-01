@@ -25,7 +25,8 @@ function ProfileCard(props) {
         const response = await axiosService.get(`/room/?creator=${myId}&invited=${user.id}`);
     
         if (Object.keys(response.data).length === 0) {
-            dispatch(addRoom({ creator: myId, invited: user.id }))
+            const resultAction = await dispatch(addRoom({ creator: myId, invited: user.id }))
+            navigate(`/room/${resultAction.payload.id}`)
         } else {
             navigate(`/room/${response.data.id}`);
         }

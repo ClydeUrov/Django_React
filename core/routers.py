@@ -1,3 +1,4 @@
+from django.urls import path
 from rest_framework_nested import routers
 
 from core.auth.viewsets import LoginViewSet, RegisterViewSet, RefreshViewSet, LogoutViewSet
@@ -5,6 +6,7 @@ from core.comment.viewsets import CommentViewSet
 from core.post.viewsets import PostViewSet
 from core.user.viewsets import UserViewSet
 from core.chat_room.viewsets import RoomViewSet, MessageViewSet
+from .channel.consumers import ChatConsumer
 
 router = routers.SimpleRouter()
 
@@ -28,3 +30,9 @@ urlpatterns = [
     *posts_router.urls,
     *chat_router.urls
 ]
+
+websocket_urlpatterns = [
+    path('ws/chat/<str:room_name>/', ChatConsumer.as_asgi()),
+]
+
+urlpatterns += websocket_urlpatterns

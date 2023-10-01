@@ -16,6 +16,11 @@ function Navigationbar() {
                 <Navbar.Brand className="fw-bold" href="/">
                     Weekend World
                 </Navbar.Brand>
+                <Nav className="me-auto">
+                    <Nav.Link href="/main/">Newsline</Nav.Link>
+                    <Nav.Link href="#features">Features</Nav.Link>
+                    <Nav.Link href="#pricing">Pricing</Nav.Link>
+                </Nav>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
                         <NavLink className="nav-link mx-4" to={`/room/${roomId}`}>

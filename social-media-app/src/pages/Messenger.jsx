@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col } from "react-bootstrap";
 import Layout from "../components/Layout";
-import RoomList from '../components/messages/Room1';
+import RoomList from '../components/messages/Room';
 import MessageList from '../components/messages/Message';
 import SendMessage from '../components/messages/SendMessage';
 

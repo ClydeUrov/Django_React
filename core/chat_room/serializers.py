@@ -45,7 +45,6 @@ class MessageSerializer(serializers.ModelSerializer):
             raise PermissionDenied("You are not allowed to send messages to this room.")
 
     def to_representation(self, instance):
-        print("in rep")
         rep = super().to_representation(instance)
         author = User.objects.get_object_by_public_id(rep['author'])
         rep['author'] = UserSerializer(author, context=self.context).data
